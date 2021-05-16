@@ -1,10 +1,12 @@
 import 'react-native-gesture-handler'
 
-import React from 'react'
+import React, { useRef, useState, useEffect } from "react";
 import MyDrawer from './MyDrawer'
 
-export default function App(){
+const App = () => {
   return(
-    <MyDrawer/>
+   <MyDrawer />
   )
 }
+
+export default App;
