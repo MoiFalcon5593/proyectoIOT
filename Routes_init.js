@@ -11,7 +11,7 @@ const Stack = createStackNavigator();
 const Routes_init = () => {
 
     /*****/
-    const LoginState = useSelector(reducers => reducers.loginReducer).Login;
+    const LoginState = {ente: 'xddd'};
     console.log('que hay:', LoginState);
 
 

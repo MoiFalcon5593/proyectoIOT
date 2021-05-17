@@ -31,7 +31,7 @@ export function DrawerContent(props) {
                         </DrawerItem>
                         <DrawerItem style={styles.drawerItem}
                             labelStyle={styles.label}
-                            label='aaaa'>
+                            label='Historial'>
 
 
                         </DrawerItem>

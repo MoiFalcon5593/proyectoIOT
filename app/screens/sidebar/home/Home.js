@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Pressable, ImageBackground, StyleSheet, TextInput } from 'react-native';
+import { View, Text, Pressable, ImageBackground, StyleSheet, TextInput, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Row_simple from '../../../utils/components/row_simple'
 import Icon from 'react-native-vector-icons/Ionicons';
 export default function Home(props) {
     const navigation = useNavigation()
@@ -8,8 +9,44 @@ export default function Home(props) {
     const [password, setPassword] = useState(null)
     const [showPassword, setShowPassWord] = useState(false);
     return (
-        <View>
-            <Text>entre xd</Text>
+        <View style={{ flex: 1, backgroundColor:'#1f570a' }}>
+            <View style={styles.top}>
+                <Text style={styles.txt_white}>Name User</Text>
+            </View>
+
+            <View style={styles.container}>
+                <View style={styles.acontainer}>
+                    <Row_simple mar_top={20} mar_bot={20}>
+                        <Image source={require('../../../../assets/hombre-araña3.jpg')} style={{ width: 150, height: 100 }}></Image>
+                        <View style={{ justifyContent: 'center' }}>
+                            <Text style={styles.txt_center}>Registrar {'\n'} Producción</Text>
+                        </View>
+                    </Row_simple>
+                </View>
+                <View style={styles.acontainer}>
+                    <Row_simple mar_top={20} mar_bot={20}>
+                        <Image source={require('../../../../assets/hombre-araña2.jpg')} style={{ width: 150, height: 100 }}></Image>
+                        <View style={{ justifyContent: 'center' }}>
+                            <Text style={styles.txt_center}>Visualizar {'\n'} Producción</Text>
+                        </View>
+                    </Row_simple>
+                </View>
+                <View style={styles.acontainer}>
+                    <Row_simple mar_top={20} mar_bot={20}>
+                        <Image source={require('../../../../assets/hombre-araña.jpg')} style={{ width: 150, height: 100 }}></Image>
+                        <View style={{ justifyContent: 'center' }}>
+                            <Text style={styles.txt_center}>Reporte de {'\n'} sensores</Text>
+                        </View>
+                    </Row_simple>
+                </View>
+                <View style={styles.abcontainer}>
+                    <Row_simple mar_top={20} mar_bot={20}>
+                        <Image source={require('../../../../assets/peter-negro.png')} style={{ width: 90, height: 90 }}></Image>
+                    </Row_simple>
+                </View>
+            </View>
+
+
         </View>
     );
 }
@@ -17,8 +54,53 @@ export default function Home(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        alignItems: 'center'
+    },
+    top: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderBottomColor: '#fff',
+        borderBottomWidth: 1,
+        width: '100%',
+        backgroundColor: '#1f570a',
+        height: 100,
+    },
+    centro_cont: {
+        display: 'flex',
+        justifyContent: 'center',
+    },
+    container_sec: {
+        margin: 20
+    },
+    txt_white: {
+        color: '#fff',
+        fontFamily: 'Metropolis-Regular'
+    },
+    acontainer: {
+        width: '80%', 
+        paddingHorizontal: 40,
+        display: 'flex', 
+        justifyContent: 'center',
+        marginBottom: 20,
+        borderRadius: 25,
+        borderColor: '#3b3b3b',
+        borderWidth:2
+
+    },
+    abcontainer:{
+        height: 120,
+        width: '30%', 
+        paddingHorizontal: 17,
+        display: 'flex', 
+        justifyContent: 'center',
+        marginBottom: 20,
+        borderRadius: 25,
+        borderColor: '#3b3b3b',
+        borderWidth:2
+    },
+    txt_center: {
+        textAlign: 'center'
     },
     container_input: {
         backgroundColor: "#fff",
