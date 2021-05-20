@@ -17,8 +17,13 @@ export default function Login(props) {
         try {
             const res = await Axios.get(url_data + `/${username}/${contrasena}`)
             console.log("res:", res.data)
-            dispatch(SaveUser(res.data))
-            dispatch(SaveLogin(true))
+            if(res.data.length > 0) {
+                dispatch(SaveUser(res.data))
+                dispatch(SaveLogin(true))
+            }else{
+                console.log("nada");
+            }
+            
             //props.navigation.replace('SideBarStack');//No es necesario, y hace renderizar 2 veces.
         } catch (error) {
             console.log(error);
