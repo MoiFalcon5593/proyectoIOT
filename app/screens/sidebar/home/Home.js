@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, Pressable, ImageBackground, StyleSheet, TextInput, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
 import Row_simple from '../../../utils/components/row_simple'
 import Icon from 'react-native-vector-icons/Ionicons';
+import { SaveLogin, SaveUser } from '../../../actions/loginActions';
 export default function Home(props) {
     const navigation = useNavigation()
-    const [email, setEmail] = useState(null)
-    const [password, setPassword] = useState(null)
-    const [showPassword, setShowPassWord] = useState(false);
+    const dispatch = useDispatch();
+
+    const onLogout = async () => {
+        dispatch(SaveLogin(null))
+        dispatch(SaveUser(null))
+    }
+
     return (
         <ImageBackground style={styles.containerhead} source={require("../../../../assets/bg-home.png")}>
             <View style={styles.top}>
@@ -34,7 +40,7 @@ export default function Home(props) {
                     </Row_simple>
                 </Pressable>
                 <Pressable android_ripple={{ color: "#3b3b3b" }}
-                    onPress={() => navigation.navigate("RegisterProduction")} style={styles.acontainer}>
+                onPress={() => navigation.navigate("ReportSensor")} style={styles.acontainer}>
                     <Row_simple mar_top={20} mar_bot={20} pad_h={30}>
                         <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
                         <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
@@ -42,8 +48,7 @@ export default function Home(props) {
                         </View>
                     </Row_simple>
                 </Pressable>
-                <Pressable android_ripple={{ color: "#3b3b3b" }}
-                    onPress={() => navigation.navigate("RegisterProduction")} style={styles.abcontainer}>
+                <Pressable android_ripple={{ color: "#3b3b3b" }} onPress={() => onLogout()} style={styles.abcontainer}>
                     <Row_simple mar_top={20} mar_bot={20}>
                         <Image source={require('../../../../assets/exit.png')} style={{ width: 80, height: 80 }}></Image>
                     </Row_simple>

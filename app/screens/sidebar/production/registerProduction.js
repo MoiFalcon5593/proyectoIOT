@@ -11,6 +11,7 @@ export default function RegisterProduction(props) {
     const [avatarSource, setAvatarSource] = useState(null)
     const [cantidad, setCantidad] = useState('')
     const [persona, setPersona] = useState('')
+    const [tipoPalta, setTipoPalta] = useState('')
 
     function selectImg() {
         launchImageLibrary(optionsImagePicker, (response) => {
@@ -34,11 +35,14 @@ export default function RegisterProduction(props) {
 
     return (
         <ImageBackground style={styles.containerhead} source={require("../../../../assets/bg-home.png")}>
+            <View style={styles.top}>
+                <Pressable android_ripple={{ color: "#3b3b3b" }}
+                    onPress={() => navigation.goBack()}>
+                    <Image source={require("../../../../assets/back.png")} />
+                </Pressable>
+                <Text style={styles.txt_white}>Registrar Producción</Text>
+            </View>
             <ScrollView>
-                <View style={styles.top}>
-                    <Text style={styles.txt_white}>Registrar Producción</Text>
-                </View>
-
                 <View style={styles.container}>
                     <Row_simple mar_top={30}>
                         <View>
@@ -61,6 +65,24 @@ export default function RegisterProduction(props) {
                             </Pressable>
                         </View>
                     </Row_simple>
+                    <Text style={{ fontSize: 20, marginTop: -10 }}>Tipo de palta</Text>
+                    <View style={styles.container_input}>
+                        <TextInput
+                            placeholder=''
+                            keyboardType="default"
+                            onChangeText={(e) => setTipoPalta(e)}
+                            style={styles.input}
+                        />
+                    </View>
+                    <Text style={{ fontSize: 20 }}>Precio</Text>
+                    <View style={styles.container_input}>
+                        <TextInput
+                            placeholder=''
+                            keyboardType="default"
+                            onChangeText={(e) => setCantidad(e)}
+                            style={styles.input}
+                        />
+                    </View>
                     <View>
                         <Text style={{ fontSize: 20 }}>Pers. Encargada</Text>
                         <View style={styles.container_input2}>
@@ -79,57 +101,8 @@ export default function RegisterProduction(props) {
                             </Pressable>
                         </View>
                     </View>
+                
 
-                </View>
-                <View style={{ marginTop: 40, paddingHorizontal: 25 }}>
-                    <Row_simple mar_bot={20}>
-                        <Colum_simple jus_cont={'center'} flex={0.2}>
-                            <Image source={require("../../../../assets/icons-15.png")} style={{ width: 70, height: 70, marginRight: "auto", marginLeft: "auto" }} />
-                        </Colum_simple>
-                        <Colum_simple flex={1} jus_cont={'flex-start'}>
-                            <Row_simple flex={1} mar_l={10} jus_cont={'center'}>
-                                <Colum_simple jus_cont={'center'}>
-                                    <Text style={{ fontFamily: "Metropolis-Bold", color: "white", fontSize: 16 }} >Cant. Prod</Text>
-                                    <Text style={{ fontFamily: "Metropolis-Bold", color: "white", fontSize: 16 }}>Pers. Encargada</Text>
-                                </Colum_simple>
-                            </Row_simple>
-                        </Colum_simple>
-                        <Colum_simple jus_cont={'center'}>
-                            <Image source={require("../../../../assets/icons-14.png")} style={{ width: 20, height: 20 }} />
-                        </Colum_simple>
-                    </Row_simple>
-                    <Row_simple mar_bot={20}>
-                        <Colum_simple jus_cont={'center'} flex={0.2}>
-                            <Image source={require("../../../../assets/icons-15.png")} style={{ width: 70, height: 70, marginRight: "auto", marginLeft: "auto" }} />
-                        </Colum_simple>
-                        <Colum_simple flex={1} jus_cont={'flex-start'}>
-                            <Row_simple flex={1} mar_l={10} jus_cont={'center'}>
-                                <Colum_simple jus_cont={'center'}>
-                                    <Text style={{ fontFamily: "Metropolis-Bold", color: "white", fontSize: 16 }} >Cant. Prod</Text>
-                                    <Text style={{ fontFamily: "Metropolis-Bold", color: "white", fontSize: 16 }}>Pers. Encargada</Text>
-                                </Colum_simple>
-                            </Row_simple>
-                        </Colum_simple>
-                        <Colum_simple jus_cont={'center'}>
-                            <Image source={require("../../../../assets/icons-14.png")} style={{ width: 20, height: 20 }} />
-                        </Colum_simple>
-                    </Row_simple>
-                    <Row_simple mar_bot={20}>
-                        <Colum_simple jus_cont={'center'} flex={0.2}>
-                            <Image source={require("../../../../assets/icons-15.png")} style={{ width: 70, height: 70, marginRight: "auto", marginLeft: "auto" }} />
-                        </Colum_simple>
-                        <Colum_simple flex={1} jus_cont={'flex-start'}>
-                            <Row_simple flex={1} mar_l={10} jus_cont={'center'}>
-                                <Colum_simple jus_cont={'center'}>
-                                    <Text style={{ fontFamily: "Metropolis-Bold", color: "white", fontSize: 16 }} >Cant. Prod</Text>
-                                    <Text style={{ fontFamily: "Metropolis-Bold", color: "white", fontSize: 16 }}>Pers. Encargada</Text>
-                                </Colum_simple>
-                            </Row_simple>
-                        </Colum_simple>
-                        <Colum_simple jus_cont={'center'}>
-                            <Image source={require("../../../../assets/icons-14.png")} style={{ width: 20, height: 20 }} />
-                        </Colum_simple>
-                    </Row_simple>
                 </View>
             </ScrollView>
         </ImageBackground>
@@ -148,7 +121,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20
     },
     top: {
-        justifyContent: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
         alignItems: 'center',
         borderBottomColor: '#fff',
         borderBottomWidth: 1,
