@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, Pressable, ImageBackground, StyleSheet, TextInput, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Row_simple from '../../../utils/components/row_simple'
+import Column_simple from '../../../utils/components/colum_simple'
 import Icon from 'react-native-vector-icons/Ionicons';
-export default function Home(props) {
+export default function RegisterProduction(props) {
     const navigation = useNavigation()
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
@@ -11,43 +12,55 @@ export default function Home(props) {
     return (
         <ImageBackground style={styles.containerhead} source={require("../../../../assets/bg-home.png")}>
             <View style={styles.top}>
-                <Text style={styles.txt_white}>Name User</Text>
+                <Text style={styles.txt_white}>Registrar Producción</Text>
             </View>
 
             <View style={styles.container}>
-                <Pressable android_ripple={{ color: "#3b3b3b" }}
-                    onPress={() => navigation.navigate("RegisterProduction")} style={styles.acontainer}>
-                    <Row_simple mar_top={20} mar_bot={20} pad_h={30}>
-                        <Image source={require('../../../../assets/pr.png')} style={{ width: 110, height: 110 }}></Image>
-                        <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
-                            <Text style={styles.txt_center}>Registrar {'\n'} Producción</Text>
+                <Row_simple mar_top={30}>
+                    <View>
+                        <Text style={{ fontSize: 20 }}>Cant. Prod</Text>
+                        <View style={styles.container_input}>
+                            <TextInput
+                                placeholder=''
+                                keyboardType="default"
+                                onChangeText={(e) => setEmail(e)}
+                                style={styles.input}
+                            />
                         </View>
-                    </Row_simple>
-                </Pressable>
-                <Pressable android_ripple={{ color: "#3b3b3b" }}
-                    onPress={() => navigation.navigate("RegisterProduction")} style={styles.acontainer}>
+                    </View>
+                    <View>
+                        <Text style={{ fontSize: 20 }}>Cant. Prod</Text>
+                        <View style={styles.container_input}>
+                            <TextInput
+                                placeholder=''
+                                keyboardType="default"
+                                onChangeText={(e) => setEmail(e)}
+                                style={styles.input}
+                            />
+                        </View>
+                    </View>
+                </Row_simple>
+                <View style={styles.acontainer}>
                     <Row_simple mar_top={20} mar_bot={20} pad_h={30}>
                         <Image source={require('../../../../assets/lupita.png')} style={{ width: 110, height: 110 }}></Image>
                         <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
                             <Text style={styles.txt_center}>Visualizar {'\n'} Producción</Text>
                         </View>
                     </Row_simple>
-                </Pressable>
-                <Pressable android_ripple={{ color: "#3b3b3b" }}
-                    onPress={() => navigation.navigate("RegisterProduction")} style={styles.acontainer}>
+                </View>
+                <View style={styles.acontainer}>
                     <Row_simple mar_top={20} mar_bot={20} pad_h={30}>
                         <Image source={require('../../../../assets/camara.png')} style={{ width: 110, height: 110 }}></Image>
                         <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
                             <Text style={styles.txt_center}>Reporte de {'\n'} sensores</Text>
                         </View>
                     </Row_simple>
-                </Pressable>
-                <Pressable android_ripple={{ color: "#3b3b3b" }}
-                    onPress={() => navigation.navigate("RegisterProduction")} style={styles.abcontainer}>
+                </View>
+                <View style={styles.abcontainer}>
                     <Row_simple mar_top={20} mar_bot={20}>
                         <Image source={require('../../../../assets/exit.png')} style={{ width: 110, height: 110 }}></Image>
                     </Row_simple>
-                </Pressable>
+                </View>
             </View>
         </ImageBackground>
     );
@@ -61,8 +74,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: 'center'
+        paddingHorizontal: 50
     },
     top: {
         justifyContent: 'center',
@@ -109,7 +121,7 @@ const styles = StyleSheet.create({
     },
     container_input: {
         backgroundColor: "#fff",
-        width: 290,
+        width: 180,
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
@@ -123,7 +135,7 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
-        color: "#000"
+        color: "#000",
     },
     textbtn: {
         color: "#fff",

@@ -1,49 +1,34 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios';
+import Axios from 'axios';
 import { View, Text, Pressable, ImageBackground, StyleSheet, TextInput, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { SaveLogin, SaveUser } from '../../actions/loginActions';
 export default function Login(props) {
     const navigation = useNavigation()
+    const dispatch = useDispatch();
     const [username, setEmail] = useState(null)
     const [contrasena, setPassword] = useState(null)
     const [showPassword, setShowPassWord] = useState(false);
-    const urlData = "http://localhost:3001"
+    const url_data = "https://apiusers.azurewebsites.net/api/usuarios"
 
     const onSummit = async () => {
-
-        if (!username || !contrasena) {
-            return Alert.alert(
-                "Alerta",
-                "Llene todo los campos",
-                [{ text: "Aceptar", style: "default" }]
-            )
+        try {
+            const res = await Axios.get(url_data + `/${username}/${contrasena}`)
+            console.log("res:", res.data)
+            dispatch(SaveUser(res.data))
+            dispatch(SaveLogin(true))
+            //props.navigation.replace('SideBarStack');//No es necesario, y hace renderizar 2 veces.
+        } catch (error) {
+            console.log(error);
         }
-        const formData = { username: username, contrasena: contrasena }
-        console.log("entre");
-        await axios.get(
-            urlData + '/api/medicion')
-            .then(res => {
-                const { data } = res;
-                console.log(data);
-                switch (data.msg) {
-                    case 'FOUND':
-                        console.log('Login validado');
-                        getUserData(data.userID);
-                        break;
-                    case 'NOT_FOUND':
-                        setNotification(true);
-                        console.log('Login no validado');
-                        break;
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        //props.navigation.replace('SideBarStack');//No es necesario, y hace renderizar 2 veces.
+
     };
 
     return (
-        <ImageBackground style={styles.container} source={require("../../../assets/fondo.jpg")}>
+        <ImageBackground style={styles.container} source={require("../../../assets/bg-login.png")}>
 
             <View style={[styles.container_input, { paddingRight: 20 }]}>
                 <TextInput
