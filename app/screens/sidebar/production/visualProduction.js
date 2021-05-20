@@ -2,52 +2,48 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, Pressable, ImageBackground, StyleSheet, TextInput, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Row_simple from '../../../utils/components/row_simple'
+import Column_simple from '../../../utils/components/colum_simple'
 import Icon from 'react-native-vector-icons/Ionicons';
-export default function Home(props) {
+//import { Calendar } from 'react-native-calendario';
+import DatePicker from 'react-native-datepicker'
+
+export default function VisualProduction(props) {
     const navigation = useNavigation()
-    const [email, setEmail] = useState(null)
-    const [password, setPassword] = useState(null)
-    const [showPassword, setShowPassWord] = useState(false);
+    const [date, setDate] = useState('')
+    const [date2, setDate2] = useState('')
     return (
         <ImageBackground style={styles.containerhead} source={require("../../../../assets/bg-home.png")}>
             <View style={styles.top}>
-                <Text style={styles.txt_white}>Name User</Text>
+                <Text style={styles.txt_white}>Visualizar Producción</Text>
             </View>
 
             <View style={styles.container}>
-                <Pressable android_ripple={{ color: "#3b3b3b" }}
-                    onPress={() => navigation.navigate("RegisterProduction")} style={styles.acontainer}>
-                    <Row_simple mar_top={20} mar_bot={20} pad_h={30}>
-                        <Image source={require('../../../../assets/pr.png')} style={{ width: 80, height: 80 }}></Image>
-                        <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
-                            <Text style={styles.txt_center}>Registrar {'\n'} Producción</Text>
+                <Row_simple mar_top={30}>
+                    <View>
+                        <Text style={{ fontSize: 20, color: '#fff' }}>Fecha Inicio</Text>
+                        <View style={styles.container_input}>
+                            <DatePicker style={{width: 150}}
+                                date={date}
+                                format='DD-MM-YYYY'
+                                minDate='20-05-2019'
+                                maxDate='20-05-2025'
+                                onDateChange={setDate}
+                            />
                         </View>
-                    </Row_simple>
-                </Pressable>
-                <Pressable android_ripple={{ color: "#3b3b3b" }}
-                    onPress={() => navigation.navigate("VisualProduction")} style={styles.acontainer}>
-                    <Row_simple mar_top={20} mar_bot={20} pad_h={30}>
-                        <Image source={require('../../../../assets/lupita.png')} style={{ width: 80, height: 80 }}></Image>
-                        <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
-                            <Text style={styles.txt_center}>Visualizar {'\n'} Producción</Text>
+                    </View>
+                    <View>
+                        <Text style={{ fontSize: 20, color: '#fff' }}>Fecha Fin</Text>
+                        <View style={styles.container_input}>
+                            <DatePicker style={{width: 150}}
+                                date={date2}
+                                format='DD-MM-YYYY'
+                                minDate='20-05-2019'
+                                maxDate='20-05-2025'
+                                onDateChange={setDate2}
+                            />
                         </View>
-                    </Row_simple>
-                </Pressable>
-                <Pressable android_ripple={{ color: "#3b3b3b" }}
-                    onPress={() => navigation.navigate("RegisterProduction")} style={styles.acontainer}>
-                    <Row_simple mar_top={20} mar_bot={20} pad_h={30}>
-                        <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
-                        <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
-                            <Text style={styles.txt_center}>Reporte de {'\n'} sensores</Text>
-                        </View>
-                    </Row_simple>
-                </Pressable>
-                <Pressable android_ripple={{ color: "#3b3b3b" }}
-                    onPress={() => navigation.navigate("RegisterProduction")} style={styles.abcontainer}>
-                    <Row_simple mar_top={20} mar_bot={20}>
-                        <Image source={require('../../../../assets/exit.png')} style={{ width: 80, height: 80 }}></Image>
-                    </Row_simple>
-                </Pressable>
+                    </View>
+                </Row_simple>
             </View>
         </ImageBackground>
     );
@@ -61,8 +57,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: 'center'
+        paddingHorizontal: 20
     },
     top: {
         justifyContent: 'center',
@@ -86,7 +81,7 @@ const styles = StyleSheet.create({
     },
     acontainer: {
         width: '80%',
-        paddingHorizontal: 20,
+        paddingHorizontal: 40,
         display: 'flex',
         justifyContent: 'center',
         marginBottom: 20,
@@ -109,7 +104,7 @@ const styles = StyleSheet.create({
     },
     container_input: {
         backgroundColor: "#fff",
-        width: 290,
+        width: 150,
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
@@ -117,13 +112,17 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         paddingHorizontal: 10
     },
+    calen_div: {
+        display: 'flex'
+
+    },
     icon: {
         width: 40,
         height: 40
     },
     input: {
         flex: 1,
-        color: "#000"
+        color: "#000",
     },
     textbtn: {
         color: "#fff",
