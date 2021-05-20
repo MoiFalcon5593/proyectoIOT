@@ -18,7 +18,7 @@ export default function Home(props) {
                 <Pressable android_ripple={{ color: "#3b3b3b" }}
                     onPress={() => navigation.navigate("RegisterProduction")} style={styles.acontainer}>
                     <Row_simple mar_top={20} mar_bot={20} pad_h={30}>
-                        <Image source={require('../../../../assets/pr.png')} style={{ width: 110, height: 110 }}></Image>
+                        <Image source={require('../../../../assets/pr.png')} style={{ width: 80, height: 80 }}></Image>
                         <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
                             <Text style={styles.txt_center}>Registrar {'\n'} Producción</Text>
                         </View>
@@ -27,7 +27,7 @@ export default function Home(props) {
                 <Pressable android_ripple={{ color: "#3b3b3b" }}
                     onPress={() => navigation.navigate("RegisterProduction")} style={styles.acontainer}>
                     <Row_simple mar_top={20} mar_bot={20} pad_h={30}>
-                        <Image source={require('../../../../assets/lupita.png')} style={{ width: 110, height: 110 }}></Image>
+                        <Image source={require('../../../../assets/lupita.png')} style={{ width: 80, height: 80 }}></Image>
                         <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
                             <Text style={styles.txt_center}>Visualizar {'\n'} Producción</Text>
                         </View>
@@ -36,7 +36,7 @@ export default function Home(props) {
                 <Pressable android_ripple={{ color: "#3b3b3b" }}
                     onPress={() => navigation.navigate("RegisterProduction")} style={styles.acontainer}>
                     <Row_simple mar_top={20} mar_bot={20} pad_h={30}>
-                        <Image source={require('../../../../assets/camara.png')} style={{ width: 110, height: 110 }}></Image>
+                        <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
                         <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
                             <Text style={styles.txt_center}>Reporte de {'\n'} sensores</Text>
                         </View>
@@ -45,7 +45,7 @@ export default function Home(props) {
                 <Pressable android_ripple={{ color: "#3b3b3b" }}
                     onPress={() => navigation.navigate("RegisterProduction")} style={styles.abcontainer}>
                     <Row_simple mar_top={20} mar_bot={20}>
-                        <Image source={require('../../../../assets/exit.png')} style={{ width: 110, height: 110 }}></Image>
+                        <Image source={require('../../../../assets/exit.png')} style={{ width: 80, height: 80 }}></Image>
                     </Row_simple>
                 </Pressable>
             </View>
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     },
     acontainer: {
         width: '80%',
-        paddingHorizontal: 40,
+        paddingHorizontal: 20,
         display: 'flex',
         justifyContent: 'center',
         marginBottom: 20,
