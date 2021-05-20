@@ -11,13 +11,13 @@ const Stack = createStackNavigator();
 const Routes_init = () => {
 
     /*****/
-    const LoginState = {ente: 'xddd'};
+    const LoginState = useSelector(reducers => reducers.loginReducer).Login;
     console.log('que hay:', LoginState);
 
 
     return (
         <>
-            <StatusBar barStyle={"light-content"} backgroundColor={"#ff4d0d"} /* hidden={true} */ />
+            <StatusBar barStyle={"light-content"} backgroundColor={"green"} /* hidden={true} */ />
             <NavigationContainer >
                 <Stack.Navigator screenOptions={{ headerShown: false }}>
                     {LoginState == null &&
