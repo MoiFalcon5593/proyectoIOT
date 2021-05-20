@@ -14,6 +14,13 @@ export default function Login(props) {
     const url_data = "https://apiusers.azurewebsites.net/api/usuarios"
 
     const onSummit = async () => {
+        if (!username || !contrasena) {
+            return Alert.alert(
+                "Alerta",
+                "Llene todo los campos",
+                [{ text: "Aceptar", style: "default" }]
+            )
+        }
         try {
             const res = await Axios.get(url_data + `/${username}/${contrasena}`)
             console.log("res:", res.data)
@@ -21,7 +28,11 @@ export default function Login(props) {
                 dispatch(SaveUser(res.data))
                 dispatch(SaveLogin(true))
             }else{
-                console.log("nada");
+                return Alert.alert(
+                    "Alerta",
+                    "Usuario y/o contraseña incorrectos",
+                    [{ text: "Aceptar", style: "default" }]
+                )
             }
             
             //props.navigation.replace('SideBarStack');//No es necesario, y hace renderizar 2 veces.
@@ -54,9 +65,9 @@ export default function Login(props) {
                     style={styles.input}
                 />
                 {
-                    showPassword ? <Icon name='md-eye-off-outline' color="#f0a830" size={30} style={{ marginRight: 10 }}
+                    showPassword ? <Icon name='md-eye-off-outline' color="blue" size={20} style={{ marginRight: 10 }}
                         onPress={() => setShowPassWord(false)} /> :
-                        <Icon name='ios-eye-outline' color="#f0a830" size={30} style={{ marginRight: 10 }}
+                        <Icon name='ios-eye-outline' color="blue" size={20} style={{ marginRight: 10 }}
                             onPress={() => setShowPassWord(true)} />
                 }
             </View>
@@ -105,7 +116,7 @@ const styles = StyleSheet.create({
     },
     containerBtn: {
         width: 290,
-        backgroundColor: "#ff4d0d",
+        backgroundColor: "blue",
         borderRadius: 15,
         marginVertical: 10,
         overflow: "hidden"
