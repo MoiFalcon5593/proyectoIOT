@@ -33,7 +33,7 @@ export default function ReportSensor(props) {
             }
         }
         getData()
-    }, []);
+    }, [tabladata]);
     return (
         <ImageBackground style={styles.containerhead} source={require("../../../../assets/bg-home.png")}>
             <View style={styles.top}>
@@ -44,43 +44,43 @@ export default function ReportSensor(props) {
                 <Text style={styles.txt_white}>Reporte Sensores</Text>
             </View>
             <ScrollView>
-                <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 30}}>
-                <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', width: '80%', textAlign: 'center', height: 80, borderRadius: 10}}>
-                    <Text style={{color: 'black'}}>Húmedad</Text>
-                    {
-                        date > 0 && date < 40 ?
-                        <Text style={{textAlign: 'center', color: 'red'}}>El terreno necesita ser regado urgentemente.</Text>:
-                        date > 40 && date < 80 ?
-                        <Text style={{textAlign: 'center', color: 'yellow'}}>El terreno se encuentra en condiciones estables, pero en un periódo cercano se debe planificar el proceso de riego.</Text>
-                        :
-                        <Text style={{textAlign: 'center', color: 'blue'}}>El terreno se encuentra en óptimas condiciones.</Text>
-                    }
+                <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 30 }}>
+                    <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', width: '80%', textAlign: 'center', height: 80, borderRadius: 10 }}>
+                        <Text style={{ color: 'black' }}>Húmedad: {date}</Text>
+                        {
+                            date > 0 && date < 40 ?
+                                <Text style={{ textAlign: 'center', color: 'red' }}>El terreno necesita ser regado urgentemente.</Text> :
+                                date > 40 && date < 80 ?
+                                    <Text style={{ textAlign: 'center', color: '#ffbf00' }}>El terreno se encuentra en condiciones estables, pero en un periódo cercano se debe planificar el proceso de riego.</Text>
+                                    :
+                                    <Text style={{ textAlign: 'center', color: 'blue' }}>El terreno se encuentra en óptimas condiciones.</Text>
+                        }
+                    </View>
                 </View>
-                </View>
-                <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 30}}>
-                <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', width: '80%', textAlign: 'center', height: 80, borderRadius: 10}}>
-                <Text style={{color: 'black'}}>Alcalinidad</Text>
-                    {
-                        date1 > 0 && date1 < 4.8 ?
-                        <Text style={{textAlign: 'center', color: 'red'}}>Se requiere el uso de fertilizantes y abono.</Text>:
-                        date1 > 4.8 && date1 < 6.4 ?
-                        <Text style={{textAlign: 'center', color: 'blue'}}>El terreno se encuentra en óptimas condiciones.</Text>:
-                        <Text style={{textAlign: 'center', color: 'yellow'}}>El terreno se encuentra con excesos de nutrientes.</Text>
-                    }
-                </View>
+                <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 30 }}>
+                    <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', width: '80%', textAlign: 'center', height: 80, borderRadius: 10 }}>
+                        <Text style={{ color: 'black' }}>Alcalinidad: {date1}</Text>
+                        {
+                            date1 > 0 && date1 < 4.8 ?
+                                <Text style={{ textAlign: 'center', color: 'red' }}>Se requiere el uso de fertilizantes y abono.</Text> :
+                                date1 > 4.8 && date1 < 6.4 ?
+                                    <Text style={{ textAlign: 'center', color: 'blue' }}>El terreno se encuentra en óptimas condiciones.</Text> :
+                                    <Text style={{ textAlign: 'center', color: '#ffbf00' }}>El terreno se encuentra con excesos de nutrientes.</Text>
+                        }
+                    </View>
                 </View>
                 <View style={styles.container}>
                     <View style={{ marginTop: 10 }}>
                         <DataTable>
                             <DataTable.Header>
-                                <DataTable.Title >Id</DataTable.Title>
+                                <DataTable.Title >Fecha Registro</DataTable.Title>
                                 <DataTable.Title numeric>Alcalinidad</DataTable.Title>
                                 <DataTable.Title numeric>Humedad</DataTable.Title>
                             </DataTable.Header>
                             {
                                 tabladata.map((item) => (
                                     <DataTable.Row key={item.id}>
-                                        <DataTable.Cell><Text style={{ color: 'white' }}>{item.id}</Text></DataTable.Cell>
+                                        <DataTable.Cell><Text style={{ color: 'white' }}>{item.fechA_REGISTRO}</Text></DataTable.Cell>
                                         <DataTable.Cell numeric><Text style={{ color: 'white' }}>{item.niveL_ALCALINIDAD}</Text></DataTable.Cell>
                                         <DataTable.Cell numeric><Text style={{ color: 'white' }}>{item.niveL_HUMEDAD}%</Text></DataTable.Cell>
                                     </DataTable.Row>
