@@ -5,13 +5,14 @@ import { useNavigation } from '@react-navigation/native';
 import Row_simple from '../../../utils/components/row_simple'
 import DatePicker from 'react-native-datepicker'
 import { DataTable } from 'react-native-paper';
+import Slider from "react-native-slider";
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
 export default function ReportSensor(props) {
     const navigation = useNavigation()
-    const [date, setDate] = useState('')
-    const [date1, setDate1] = useState('')
-    const url_data = "https://apiparametros.azurewebsites.net/api/parametros"
+    const [date, setDate] = useState(0)
+    const [date1, setDate1] = useState(0)
+    const url_data = "https://apiusers.azurewebsites.net/api/parametros"
     const [tablahead, setTablaHead] = useState(['Id', 'Alcalinidad', 'Humedad'])
     const [tabladata, setTablaData] = useState([])
     const [data, setTData] = useState(null)
@@ -20,12 +21,12 @@ export default function ReportSensor(props) {
         async function getData() {
             try {
                 const res = await Axios.get(url_data)
-                console.log("res:", res.data)
-                setTablaData(res.data)
-                res.data.map((item, idx) => {
-                    if (idx === res.data.length - 1) {
+                console.log("res:", res.data.objModel)
+                setTablaData(res.data.objModel)
+                res.data.objModel.map((item, idx) => {
+                    if (idx === res.data.objModel.length - 1) {
                         setDate(item.niveL_HUMEDAD);
-                        setDate1(item.niveL_ALCALINIDAD)
+                        setDate1(Number(item.niveL_ALCALINIDAD))
                     }
                 })
             } catch (error) {
@@ -34,63 +35,73 @@ export default function ReportSensor(props) {
         }
         getData()
     }, [tabladata]);
+    console.log(date);
     return (
-        <ImageBackground style={styles.containerhead} source={require("../../../../assets/bg-home.png")}>
-            <View style={styles.top}>
-                <Pressable android_ripple={{ color: "#3b3b3b" }}
-                    onPress={() => navigation.goBack()}>
-                    <Image source={require("../../../../assets/back.png")} />
-                </Pressable>
-                <Text style={styles.txt_white}>Reporte Sensores</Text>
-            </View>
-            <ScrollView>
-                <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 30 }}>
-                    <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', width: '80%', textAlign: 'center', height: 80, borderRadius: 10 }}>
-                        <Text style={{ color: 'black' }}>Húmedad: {date}</Text>
-                        {
-                            date > 0 && date < 40 ?
-                                <Text style={{ textAlign: 'center', color: 'red' }}>El terreno necesita ser regado urgentemente.</Text> :
-                                date > 40 && date < 80 ?
-                                    <Text style={{ textAlign: 'center', color: '#ffbf00' }}>El terreno se encuentra en condiciones estables, pero en un periódo cercano se debe planificar el proceso de riego.</Text>
-                                    :
-                                    <Text style={{ textAlign: 'center', color: 'blue' }}>El terreno se encuentra en óptimas condiciones.</Text>
-                        }
-                    </View>
+        <View style={styles.fathercontainer}>
+            <ImageBackground style={styles.containerhead} source={require("../../../../assets/bg-home.png")}>
+                <View style={styles.top}>
+                    <Pressable android_ripple={{ color: "#3b3b3b" }}
+                        onPress={() => navigation.goBack()}>
+                        <Image source={require("../../../../assets/back.png")} />
+                    </Pressable>
+                    <Text style={styles.txt_white}>Reporte Sensores</Text>
                 </View>
-                <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 30 }}>
-                    <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', width: '80%', textAlign: 'center', height: 80, borderRadius: 10 }}>
-                        <Text style={{ color: 'black' }}>Alcalinidad: {date1}</Text>
-                        {
-                            date1 > 0 && date1 < 4.8 ?
-                                <Text style={{ textAlign: 'center', color: 'red' }}>Se requiere el uso de fertilizantes y abono.</Text> :
-                                date1 > 4.8 && date1 < 6.4 ?
-                                    <Text style={{ textAlign: 'center', color: 'blue' }}>El terreno se encuentra en óptimas condiciones.</Text> :
-                                    <Text style={{ textAlign: 'center', color: '#ffbf00' }}>El terreno se encuentra con excesos de nutrientes.</Text>
-                        }
+                <ScrollView style={styles.container}>
+                    <View style={{ marginTop: 30 }}>
+                        <Pressable android_ripple={{ color: "#3b3b3b" }}
+                            onPress={() => navigation.navigate("GraficSensor", { tipo: 'Niveles de Humedad' })}>
+                            <Text style={{ marginBottom: 20, textAlign: 'center' }}>Nivel de Humedad: {date} (%)</Text>
+                            <Slider
+                                style={{ width: '100%', height: 40, marginBottom: 20 }}
+                                minimumValue={0}
+                                value={date}
+                                disabled
+                                maximumValue={100}
+                                minimumTrackTintColor="#FFFFFF"
+                                maximumTrackTintColor="#000000"
+                                thumbStyle={{ height: 80, width: 20 }}
+                                thumbTintColor="red"
+                                trackStyle={{ height: 60 }}
+                            />
+                            <Row_simple>
+                                <View>
+                                    <Text>0</Text>
+                                </View>
+                                <View>
+                                    <Text>100</Text>
+                                </View>
+                            </Row_simple>
+                        </Pressable>
                     </View>
-                </View>
-                <View style={styles.container}>
-                    <View style={{ marginTop: 10 }}>
-                        <DataTable>
-                            <DataTable.Header>
-                                <DataTable.Title >Fecha Registro</DataTable.Title>
-                                <DataTable.Title numeric>Alcalinidad</DataTable.Title>
-                                <DataTable.Title numeric>Humedad</DataTable.Title>
-                            </DataTable.Header>
-                            {
-                                tabladata.map((item) => (
-                                    <DataTable.Row key={item.id}>
-                                        <DataTable.Cell><Text style={{ color: 'white' }}>{item.fechA_REGISTRO}</Text></DataTable.Cell>
-                                        <DataTable.Cell numeric><Text style={{ color: 'white' }}>{item.niveL_ALCALINIDAD}</Text></DataTable.Cell>
-                                        <DataTable.Cell numeric><Text style={{ color: 'white' }}>{item.niveL_HUMEDAD}%</Text></DataTable.Cell>
-                                    </DataTable.Row>
-                                ))
-                            }
-                        </DataTable>
+                    <View style={{ marginTop: 30 }}>
+                        <Pressable android_ripple={{ color: "#3b3b3b" }}
+                            onPress={() => navigation.navigate("GraficSensor", { tipo: 'Niveles de Alcalinidad' })}>
+                            <Text style={{ marginBottom: 20, textAlign: 'center' }}>Nivel de Alcalinidad: {date1}</Text>
+                            <Slider
+                                style={{ width: '100%', height: 40, marginBottom: 20 }}
+                                minimumValue={0}
+                                value={date1}
+                                disabled
+                                maximumValue={7}
+                                minimumTrackTintColor="#FFFFFF"
+                                maximumTrackTintColor="#000000"
+                                thumbStyle={{ height: 80, width: 20 }}
+                                thumbTintColor="red"
+                                trackStyle={{ height: 60 }}
+                            />
+                            <Row_simple>
+                                <View>
+                                    <Text>0</Text>
+                                </View>
+                                <View>
+                                    <Text>7</Text>
+                                </View>
+                            </Row_simple>
+                        </Pressable>
                     </View>
-                </View>
-            </ScrollView>
-        </ImageBackground>
+                </ScrollView>
+            </ImageBackground>
+        </View>
     );
 }
 
@@ -98,7 +109,11 @@ const styles = StyleSheet.create({
     containerhead: {
         flex: 1,
         width: '100%',
-        height: '100%'
+        height: '100%',
+        resizeMode: 'cover'
+    },
+    fathercontainer: {
+        flex: 1
     },
     container: {
         flex: 1,

@@ -11,7 +11,7 @@ export default function Login(props) {
     const [username, setEmail] = useState(null)
     const [contrasena, setPassword] = useState(null)
     const [showPassword, setShowPassWord] = useState(false);
-    const url_data = "https://apiusers.azurewebsites.net/api/usuarios"
+    const url_data = "https://apiusers.azurewebsites.net/api/usuarios/login"
 
     const onSummit = async () => {
         if (!username || !contrasena) {
@@ -21,11 +21,12 @@ export default function Login(props) {
                 [{ text: "Aceptar", style: "default" }]
             )
         }
+        const formData = { "USUARIO": username , "PASSWORD": contrasena }
         try {
-            const res = await Axios.get(url_data + `/${username}/${contrasena}`)
-            console.log("res:", res.data)
-            if(res.data.length > 0) {
-                dispatch(SaveUser(res.data))
+            const res = await Axios.post(url_data, formData)
+            console.log("res:", res)
+            if(res.data.objModel.length > 0) {
+                dispatch(SaveUser(res.data.objModel))
                 dispatch(SaveLogin(true))
             }else{
                 return Alert.alert(
