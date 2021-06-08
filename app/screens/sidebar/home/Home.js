@@ -8,7 +8,7 @@ import { SaveLogin, SaveUser } from '../../../actions/loginActions';
 export default function Home(props) {
     const navigation = useNavigation()
     const dispatch = useDispatch();
-
+    console.log("nadaa");
     const onLogout = async () => {
         dispatch(SaveLogin(null))
         dispatch(SaveUser(null))
