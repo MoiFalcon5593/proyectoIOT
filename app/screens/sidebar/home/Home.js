@@ -43,52 +43,43 @@ export default function Home(props) {
             </View>
 
             <View style={styles.container}>
-                <Pressable android_ripple={{ color: "#3b3b3b" }}
-                    onPress={() => navigation.navigate("RegisterProduction")} style={styles.acontainer}>
-                    <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
-                        <Image source={require('../../../../assets/pr.png')} style={{ width: 80, height: 80 }}></Image>
-                        <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
-                            <Text style={styles.txt_center}>Registrar {'\n'} Producción</Text>
-                        </View>
-                    </Row_simple>
-                </Pressable>
-                <Pressable android_ripple={{ color: "#3b3b3b" }}
-                    onPress={() => navigation.navigate("VisualProduction")} style={styles.acontainer}>
-                    <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
-                        <Image source={require('../../../../assets/lupita.png')} style={{ width: 80, height: 80 }}></Image>
-                        <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
-                            <Text style={styles.txt_center}>Visualizar {'\n'} Producción</Text>
-                        </View>
-                    </Row_simple>
-                </Pressable>
-                <Pressable android_ripple={{ color: "#3b3b3b" }}
-                    onPress={() => navigation.navigate("ReportSensor")} style={styles.acontainer}>
-                    <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
-                        <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
-                        <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
-                            <Text style={styles.txt_center}>Reporte de {'\n'} sensores</Text>
-                        </View>
-                    </Row_simple>
-                </Pressable>
-                <Pressable android_ripple={{ color: "#3b3b3b" }}
-                    onPress={() => navigation.navigate("RegisterRiesgo")} style={styles.acontainer}>
-                    <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
-                        <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
-                        <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
-                            <Text style={styles.txt_center}>Registro de{'\n'} Riesgo</Text>
-                        </View>
-                    </Row_simple>
-                </Pressable>
-                <Pressable android_ripple={{ color: "#3b3b3b" }}
-                    onPress={() => navigation.navigate("RegisterFertil")} style={styles.acontainer}>
-                    <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
-                        <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
-                        <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
-                            <Text style={styles.txt_center}>Registro de{'\n'} Fertilizante</Text>
-                        </View>
-                    </Row_simple>
-                </Pressable>
-
+                <View style={{marginTop: 50 }}>
+                    <Pressable android_ripple={{ color: "#3b3b3b" }}
+                        onPress={() => navigation.navigate("RegisterProduction")} style={styles.acontainer}>
+                        <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
+                            <Image source={require('../../../../assets/pr.png')} style={{ width: 80, height: 80 }}></Image>
+                            <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
+                                <Text style={styles.txt_center}>Registrar {'\n'} Producción</Text>
+                            </View>
+                        </Row_simple>
+                    </Pressable>
+                    <Pressable android_ripple={{ color: "#3b3b3b" }}
+                        onPress={() => navigation.navigate("VisualProduction")} style={styles.acontainer}>
+                        <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
+                            <Image source={require('../../../../assets/lupita.png')} style={{ width: 80, height: 80 }}></Image>
+                            <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
+                                <Text style={styles.txt_center}>Visualizar {'\n'} Producción</Text>
+                            </View>
+                        </Row_simple>
+                    </Pressable>
+                    <Pressable android_ripple={{ color: "#3b3b3b" }}
+                        onPress={() => navigation.navigate("ReportSensor")} style={styles.acontainer}>
+                        <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
+                            <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
+                            <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
+                                <Text style={styles.txt_center}>Reporte de {'\n'} sensores</Text>
+                            </View>
+                        </Row_simple>
+                    </Pressable>
+                    <Pressable android_ripple={{ color: "#3b3b3b" }} style={styles.acontainer}>
+                        <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
+                            <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
+                            <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
+                                <Text style={styles.txt_center}>Reporte de {'\n'} monitoreo</Text>
+                            </View>
+                        </Row_simple>
+                    </Pressable>
+                </View>
             </View>
         </ImageBackground>
     );
@@ -102,7 +93,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        justifyContent: "center",
+        justifyContent: "flex-start",
         alignItems: 'center'
     },
     top: {
@@ -129,7 +120,7 @@ const styles = StyleSheet.create({
     },
     acontainer: {
         width: '60%',
-        paddingHorizontal: 10,
+        paddingHorizontal: 20,
         display: 'flex',
         justifyContent: 'center',
         marginBottom: 20,

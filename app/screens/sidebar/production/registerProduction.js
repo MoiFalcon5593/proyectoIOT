@@ -21,7 +21,7 @@ export default function RegisterProduction(props) {
     const listas  = useSelector(reducers => reducers.ProductionReducer).ListProduction;
     console.log(listas);
     const onSummit = async () => {
-        if (!cantidad || !persona) {
+        if (!cantidad || !persona || !precio || !foto || !tipoPalta || !avatarSource) {
             return Alert.alert(
                 "Alerta",
                 "Llene todo los campos",

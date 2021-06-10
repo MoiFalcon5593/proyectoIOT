@@ -6,18 +6,24 @@ import Colum_simple from '../../../utils/components/colum_simple'
 import Icon2 from 'react-native-vector-icons/AntDesign';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { optionsImagePicker } from '../../../utils/others';
+import { AddRegistersRiesgo } from '../../../actions/ProductionActions';
+import { useDispatch, useSelector } from 'react-redux';
 export default function RegisterRiesgo(props) {
     const navigation = useNavigation()
     const [avatarSource1, setAvatarSource1] = useState(null)
     const [avatarSource2, setAvatarSource2] = useState(null)
     const [avatarSource3, setAvatarSource3] = useState(null)
     const [cantidad, setCantidad] = useState('')
+    const [costo, setCosto] = useState('')
     const [persona, setPersona] = useState('')
     const [tipoPalta, setTipoPalta] = useState('')
-    
-    const onSubmmmit = () => {
-        console.log("aaaaaa");
-        if (!cantidad || !avatarSource1 || !avatarSource2 || !avatarSource3 || !cantidad) {
+    const dispatch = useDispatch();
+    const listas  = useSelector(reducers => reducers.ProductionReducer).ListRiesgo;
+    console.log(listas);
+
+    const onSubmmmit = async () => {
+        console.log(costo );
+        if (!persona || !avatarSource1 || !avatarSource2 || !avatarSource3 || !costo) {
             console.log("entreeee");
             return Alert.alert(
                 "Alerta",
@@ -25,6 +31,17 @@ export default function RegisterRiesgo(props) {
                 [{ text: "Aceptar", style: "default" }]
             )
         }
+        dispatch(AddRegistersRiesgo(persona, costo, avatarSource1, avatarSource2, avatarSource3))
+        Alert.alert(
+            "Satisfactorio",
+            "Nuevo registro de riesgro creado",
+            [
+                {
+                    text: "Ok",
+                    onPress: () => navigation.goBack()
+                }
+            ]
+        )
     }
 
     function selectImg1() {
@@ -98,52 +115,67 @@ export default function RegisterRiesgo(props) {
                 <View style={styles.container}>
                     <Row_simple mar_top={30}>
                         <View>
-                            <Text style={{ fontSize: 20 }}>Encargardo de Riesgo</Text>
-                            <View style={styles.container_input}>
-                                <TextInput
-                                    placeholder=''
-                                    keyboardType="default"
-                                    onChangeText={(e) => setCantidad(e)}
-                                    style={styles.input}
-                                />
+                            <View>
+                                <Text style={{ fontSize: 18 }}>Encarg. de Riesgo</Text>
+                                <View style={styles.container_input}>
+                                    <TextInput
+                                        placeholder=''
+                                        keyboardType="default"
+                                        onChangeText={(e) => setPersona(e)}
+                                        style={styles.input}
+                                    />
+                                </View>
                             </View>
-                            <View style={{}}>
-                            <Text style={{ fontSize: 20, color: 'white' }}>Añadir Imagen 1</Text>
-                            <Pressable style={{ position: "relative", marginBottom: 15 }} onPress={() => selectImg1()}>
-                                {avatarSource1 ?
-                                    <Image source={avatarSource1} style={styles.img} /> :
-                                    <Image source={require("../../../../assets/img-image.png")} style={styles.img} />}
-                            </Pressable>
+                            <View>
+                                <Text style={{ fontSize: 18 }}>Costo</Text>
+                                <View style={styles.container_input}>
+                                    <TextInput
+                                        placeholder=''
+                                        keyboardType="default"
+                                        onChangeText={(e) => setCosto(e)}
+                                        style={styles.input}
+                                    />
+                                </View>
+                            </View>
                         </View>
-                        <View style={{}}>
-                            <Text style={{ fontSize: 20, color: 'white' }}>Añadir Imagen 2</Text>
-                            <Pressable style={{ position: "relative", marginBottom: 15 }} onPress={() => selectImg2()}>
-                                {avatarSource2 ?
-                                    <Image source={avatarSource2} style={styles.img} /> :
-                                    <Image source={require("../../../../assets/img-image.png")} style={styles.img} />}
-                            </Pressable>
+                        <View>
+                            <View style={{ display: 'flex', alignItems: 'center'}}>
+                                <Text style={{ fontSize: 18, color: 'white' }}>Añadir Imagen 1</Text>
+                                <Pressable style={{ position: "relative", marginBottom: 15 }} onPress={() => selectImg1()}>
+                                    {avatarSource1 ?
+                                        <Image source={avatarSource1} style={styles.img} /> :
+                                        <Image source={require("../../../../assets/img-image.png")} style={styles.img} />}
+                                </Pressable>
+                            </View>
+                            <View style={{ display: 'flex', alignItems: 'center'}}>
+                                <Text style={{ fontSize: 18, color: 'white' }}>Añadir Imagen 2</Text>
+                                <Pressable style={{ position: "relative", marginBottom: 15 }} onPress={() => selectImg2()}>
+                                    {avatarSource2 ?
+                                        <Image source={avatarSource2} style={styles.img} /> :
+                                        <Image source={require("../../../../assets/img-image.png")} style={styles.img} />}
+                                </Pressable>
+                            </View>
+                            <View style={{ display: 'flex', alignItems: 'center'}}>
+                                <Text style={{ fontSize: 18, color: 'white' }}>Añadir Imagen 3</Text>
+                                <Pressable style={{ position: "relative", marginBottom: 15 }} onPress={() => selectImg3()}>
+                                    {avatarSource3 ?
+                                        <Image source={avatarSource3} style={styles.img} /> :
+                                        <Image source={require("../../../../assets/img-image.png")} style={styles.img} />}
+                                </Pressable>
+                            </View>
                         </View>
-                        <View style={{}}>
-                            <Text style={{ fontSize: 20, color: 'white' }}>Añadir Imagen 3</Text>
-                            <Pressable style={{ position: "relative", marginBottom: 15 }} onPress={() => selectImg3()}>
-                                {avatarSource3 ?
-                                    <Image source={avatarSource3} style={styles.img} /> :
-                                    <Image source={require("../../../../assets/img-image.png")} style={styles.img} />}
-                            </Pressable>
-                        </View>
-                        </View>
-                        
+
                     </Row_simple>
-                    
-                    
-                    <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+
+
+                    <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 30 }}>
                         <View style={styles.containerBtn}>
-                            <Pressable onPress={() => onSubmmmit()}  style={{ width: "100%", display: 'flex', alignItems: 'center', justifyContent: 'center' }} android_ripple={{ color: "#fff" }}>
+                            <Pressable onPress={() => onSubmmmit()} style={{ width: "100%", display: 'flex', alignItems: 'center', justifyContent: 'center' }} android_ripple={{ color: "#fff" }}>
                                 <Text style={styles.textbtn}>Registrar</Text>
                             </Pressable>
                         </View>
                     </View>
-                
+
 
                 </View>
             </ScrollView>
@@ -156,7 +188,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     container: {
-        paddingHorizontal: 20
+        paddingHorizontal: 15
     },
     container2: {
         flex: 1,

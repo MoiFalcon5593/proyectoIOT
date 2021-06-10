@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loading from './app/screens/loading';
 import LoginStack from './app/navigator/loginStack'
 import HomeStack from './app/navigator/SideBar/homeStack';
-import { getListRegisters, getUserData } from './app/utils/AsyncStore';
+import { getListFertilizantes, getListRegisters, getListRiesgo, getUserData } from './app/utils/AsyncStore';
 import { SaveListRegisters } from './app/actions/ProductionActions';
 import { SaveLogin, SaveUser } from './app/actions/loginActions';
 
@@ -20,10 +20,16 @@ const Routes_init = () => {
     useEffect(() => {
         async function getList() {
             const list = await getListRegisters()
+            const list2 = await getListRiesgo()
+            const list3 = await getListFertilizantes()
             const user = await getUserData()
             console.log("lista de registros:", list)
+            console.log("lista de registros2:", list2)
+            console.log("lista de registros3:", list3)
             console.log("usuario?:", user)
             if (list) dispatch(SaveListRegisters(list))
+            if (list2) dispatch(SaveListRegisters(list2))
+            if (list3) dispatch(SaveListRegisters(list3))
             if (user) {
                 dispatch(SaveUser(user))
                 dispatch(SaveLogin(true))
