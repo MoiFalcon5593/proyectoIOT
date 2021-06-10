@@ -1,17 +1,34 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Pressable, ImageBackground, StyleSheet, TextInput, Image, ScrollView } from 'react-native';
+import { View, Text, Pressable, ImageBackground, StyleSheet, TextInput, Image, ScrollView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Row_simple from '../../../utils/components/row_simple'
 import Colum_simple from '../../../utils/components/colum_simple'
 import Icon2 from 'react-native-vector-icons/AntDesign';
+import { useDispatch, useSelector } from 'react-redux';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { optionsImagePicker } from '../../../utils/others';
+import { AddRegisters } from '../../../actions/ProductionActions';
 export default function RegisterProduction(props) {
+
+    const dispatch = useDispatch();
     const navigation = useNavigation()
     const [avatarSource, setAvatarSource] = useState(null)
+    const [foto, setFoto] = useState(null)
     const [cantidad, setCantidad] = useState('')
     const [persona, setPersona] = useState('')
     const [tipoPalta, setTipoPalta] = useState('')
+    const [precio, setPrecio] = useState('')
+    const  listas  = useSelector(reducers => reducers.ProductionReducer).ListProduction;
+    const onSummit = async () => {
+        if (!cantidad || !persona) {
+            return Alert.alert(
+                "Alerta",
+                "Llene todo los campos",
+                [{ text: "Aceptar", style: "default" }]
+            )
+        }
+        dispatch(AddRegisters(cantidad, precio, foto, tipoPalta, persona, avatarSource))
+    }
 
     function selectImg() {
         launchImageLibrary(optionsImagePicker, (response) => {
@@ -29,6 +46,7 @@ export default function RegisterProduction(props) {
                 // You can also display the image using data:
                 // const source = { uri: 'data:image/jpeg;base64,' + response.data };
                 setAvatarSource(source)
+                setFoto(response.base64)
             }
         });
     }
@@ -44,64 +62,73 @@ export default function RegisterProduction(props) {
             </View>
             <ScrollView>
                 <View style={styles.container}>
-                    <Row_simple mar_top={30}>
-                        <View>
-                            <Text style={{ fontSize: 20 }}>Cant. Prod</Text>
-                            <View style={styles.container_input}>
-                                <TextInput
-                                    placeholder=''
-                                    keyboardType="default"
-                                    onChangeText={(e) => setCantidad(e)}
-                                    style={styles.input}
-                                />
+                    <Row_simple jus_cont={'space-around'}>
+                        <View style={{ marginTop: 30 }}>
+                            <View>
+                                <Text style={{ fontSize: 20 }}>Cant. Prod</Text>
+                                <View style={styles.container_input}>
+                                    <TextInput
+                                        placeholder=''
+                                        keyboardType="default"
+                                        onChangeText={(e) => setCantidad(e)}
+                                        style={styles.input}
+                                    />
+                                </View>
+                            </View>
+                            <View>
+                                <Text style={{ fontSize: 20 }}>Tipo de palta</Text>
+                                <View style={styles.container_input}>
+                                    <TextInput
+                                        placeholder=''
+                                        keyboardType="default"
+                                        onChangeText={(e) => setTipoPalta(e)}
+                                        style={styles.input}
+                                    />
+                                </View>
+                            </View>
+                            <View>
+                                <Text style={{ fontSize: 20 }}>Precio</Text>
+                                <View style={styles.container_input}>
+                                    <TextInput
+                                        placeholder=''
+                                        keyboardType="default"
+                                        onChangeText={(e) => setPrecio(e)}
+                                        style={styles.input}
+                                    />
+                                </View>
+                            </View>
+                            <View>
+                                <Text style={{ fontSize: 20 }}>Pers. Encargada</Text>
+                                <View style={styles.container_input2}>
+                                    <TextInput
+                                        placeholder=''
+                                        keyboardType="default"
+                                        onChangeText={(e) => setPersona(e)}
+                                        style={styles.input}
+                                    />
+                                </View>
                             </View>
                         </View>
-                        <View style={{ display: 'flex', alignItems: 'center' }}>
-                            <Text style={{ fontSize: 20, color: 'white' }}>Añadir Imagen</Text>
-                            <Pressable style={{ position: "relative" }} onPress={() => selectImg()}>
-                                {avatarSource ?
-                                    <Image source={avatarSource} style={styles.img} /> :
-                                    <Image source={require("../../../../assets/img-image.png")} style={styles.img} />}
-                            </Pressable>
+                        <View style={{ marginTop: 30 }}>
+                            <View style={{ display: 'flex', alignItems: 'center' }}>
+                                <Text style={{ fontSize: 20, color: 'white' }}>Añadir Imagen</Text>
+                                <Pressable style={{ position: "relative" }} onPress={() => selectImg()}>
+                                    {avatarSource ?
+                                        <Image source={avatarSource} style={styles.img} /> :
+                                        <Image source={require("../../../../assets/img-image.png")} style={styles.img} />}
+                                </Pressable>
+                            </View>
                         </View>
                     </Row_simple>
-                    <Text style={{ fontSize: 20, marginTop: -10 }}>Tipo de palta</Text>
-                    <View style={styles.container_input}>
-                        <TextInput
-                            placeholder=''
-                            keyboardType="default"
-                            onChangeText={(e) => setTipoPalta(e)}
-                            style={styles.input}
-                        />
-                    </View>
-                    <Text style={{ fontSize: 20 }}>Precio</Text>
-                    <View style={styles.container_input}>
-                        <TextInput
-                            placeholder=''
-                            keyboardType="default"
-                            onChangeText={(e) => setCantidad(e)}
-                            style={styles.input}
-                        />
-                    </View>
-                    <View>
-                        <Text style={{ fontSize: 20 }}>Pers. Encargada</Text>
-                        <View style={styles.container_input2}>
-                            <TextInput
-                                placeholder=''
-                                keyboardType="default"
-                                onChangeText={(e) => setPersona(e)}
-                                style={styles.input}
-                            />
+                    <View style={{ marginTop: 30 }}>
+                        <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <View style={styles.containerBtn}>
+                                <Pressable onPress={() => onSummit()} style={{ width: "100%", display: 'flex', alignItems: 'center', justifyContent: 'center' }} android_ripple={{ color: "#fff" }}>
+                                    <Text style={styles.textbtn}>Registrar</Text>
+                                </Pressable>
+                            </View>
                         </View>
                     </View>
-                    <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <View style={styles.containerBtn}>
-                            <Pressable style={{ width: "100%", display: 'flex', alignItems: 'center', justifyContent: 'center' }} android_ripple={{ color: "#fff" }}>
-                                <Text style={styles.textbtn}>Registrar</Text>
-                            </Pressable>
-                        </View>
-                    </View>
-                
 
                 </View>
             </ScrollView>
@@ -188,7 +215,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10
     },
     container_input2: {
-        width: 250,
+        width: 180,
         height: 45,
         borderWidth: 3,
         borderColor: 'blue',
@@ -214,7 +241,7 @@ const styles = StyleSheet.create({
         marginVertical: 12
     },
     containerBtn: {
-        width: 160,
+        width: 200,
         backgroundColor: "blue",
         borderRadius: 15,
         marginVertical: 10,
