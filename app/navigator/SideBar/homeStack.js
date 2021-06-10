@@ -7,6 +7,7 @@ import ReportSensor from '../../screens/sidebar/production/reportSensor';
 import GraficSensor from '../../screens/sidebar/production/graficSensors';
 import RegisterRiesgo from '../../screens/sidebar/production/registerRiesgo';
 import RegisterFertil from '../../screens/sidebar/production/registerFertil';
+import ReportMonitoreo from '../../screens/sidebar/production/reportMonitoreo';
 import Register from '../../screens/login/components/register';
 
 const Stack = createStackNavigator();
@@ -21,6 +22,7 @@ const HomeStack = () => {
             <Stack.Screen name='RegisterRiesgo' component={RegisterRiesgo} options={{ headerShown: false }} />
             <Stack.Screen name='RegisterFertil' component={RegisterFertil} options={{ headerShown: false }} />
             <Stack.Screen name='GraficSensor' component={GraficSensor} options={{ headerShown: false }} />
+            <Stack.Screen name='ReportMonitoreo' component={ReportMonitoreo} options={{ headerShown: false }} />
             <Stack.Screen name='RegisterAccount' component={Register} options={{ headerShown: false }} />
         </Stack.Navigator>
     )

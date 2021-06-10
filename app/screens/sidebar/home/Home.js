@@ -75,7 +75,8 @@ export default function Home(props) {
                             </View>
                         </Row_simple>
                     </Pressable>
-                    <Pressable android_ripple={{ color: "#3b3b3b" }} style={styles.acontainer}>
+                    <Pressable android_ripple={{ color: "#3b3b3b" }}
+                    onPress={() => navigation.navigate("ReportMonitoreo")} style={styles.acontainer}>
                         <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
                             <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
                             <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
