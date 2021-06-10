@@ -23,7 +23,7 @@ export default function Home(props) {
             <View style={styles.container}>
                 <Pressable android_ripple={{ color: "#3b3b3b" }}
                     onPress={() => navigation.navigate("RegisterProduction")} style={styles.acontainer}>
-                    <Row_simple mar_top={20} mar_bot={20} pad_h={30}>
+                    <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
                         <Image source={require('../../../../assets/pr.png')} style={{ width: 80, height: 80 }}></Image>
                         <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
                             <Text style={styles.txt_center}>Registrar {'\n'} Producción</Text>
@@ -32,7 +32,7 @@ export default function Home(props) {
                 </Pressable>
                 <Pressable android_ripple={{ color: "#3b3b3b" }}
                     onPress={() => navigation.navigate("VisualProduction")} style={styles.acontainer}>
-                    <Row_simple mar_top={20} mar_bot={20} pad_h={30}>
+                    <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
                         <Image source={require('../../../../assets/lupita.png')} style={{ width: 80, height: 80 }}></Image>
                         <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
                             <Text style={styles.txt_center}>Visualizar {'\n'} Producción</Text>
@@ -41,10 +41,28 @@ export default function Home(props) {
                 </Pressable>
                 <Pressable android_ripple={{ color: "#3b3b3b" }}
                 onPress={() => navigation.navigate("ReportSensor")} style={styles.acontainer}>
-                    <Row_simple mar_top={20} mar_bot={20} pad_h={30}>
+                    <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
                         <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
                         <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
                             <Text style={styles.txt_center}>Reporte de {'\n'} sensores</Text>
+                        </View>
+                    </Row_simple>
+                </Pressable>
+                <Pressable android_ripple={{ color: "#3b3b3b" }}
+                onPress={() => navigation.navigate("RegisterRiesgo")} style={styles.acontainer}>
+                    <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
+                        <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
+                        <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
+                            <Text style={styles.txt_center}>Registro de{'\n'} Riesgo</Text>
+                        </View>
+                    </Row_simple>
+                </Pressable>
+                <Pressable android_ripple={{ color: "#3b3b3b" }}
+                onPress={() => navigation.navigate("RegisterFertil")} style={styles.acontainer}>
+                    <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
+                        <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
+                        <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
+                            <Text style={styles.txt_center}>Registro de{'\n'} Fertilizante</Text>
                         </View>
                     </Row_simple>
                 </Pressable>
@@ -90,7 +108,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     acontainer: {
-        width: '80%',
+        width: '60%',
         paddingHorizontal: 20,
         display: 'flex',
         justifyContent: 'center',
