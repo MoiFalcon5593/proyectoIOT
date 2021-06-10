@@ -8,7 +8,6 @@ import Icon2 from 'react-native-vector-icons/AntDesign';
 const ListRegister = ({ data }) => {
 
     const { avatarSource, cantidad, precio, persona } = data
-    console.log("aaa");
 
     return (
         <View style={styles.container}>
