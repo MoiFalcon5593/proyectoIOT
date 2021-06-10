@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import Row_simple from '../../../utils/components/row_simple'
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icon2 from 'react-native-vector-icons/AntDesign';
 import { SaveLogin, SaveUser } from '../../../actions/loginActions';
 import Colum_simple from '../../../utils/components/colum_simple';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -29,21 +30,24 @@ export default function Home(props) {
         <ImageBackground style={styles.containerhead} source={require("../../../../assets/bg-home.png")}>
             <View style={styles.top}>
                 <Row_simple jus_cont={'space-between'} flex={1}>
-                    <Colum_simple jus_cont={'center'} alitems={'flex-end'} flex={1} >
+                    <Colum_simple jus_cont={'center'} alitems={'flex-start'} flex={1} >
+                        <Pressable android_ripple={{ color: "#3b3b3b" }} onPress={() => navigation.navigate("RegisterAccount")}>
+                            <Icon2 name='adduser' color={"#fff"} size={40} />
+                        </Pressable>
+                    </Colum_simple>
+                    <Colum_simple jus_cont={'center'} alitems={'center'} flex={1} >
                         <Text style={styles.txt_white}>{name}</Text>
                     </Colum_simple>
                     <Colum_simple alitems={'flex-end'} jus_cont={'center'} flex={1}>
                         <Pressable android_ripple={{ color: "#3b3b3b" }} onPress={() => onLogout()} >
-                            <Row_simple mar_top={20} mar_bot={20}>
-                                <Image source={require('../../../../assets/exit.png')} style={{ width: 50, height: 50 }}></Image>
-                            </Row_simple>
+                            <Image source={require('../../../../assets/exit.png')} style={{ width: 50, height: 50 }}></Image>
                         </Pressable>
                     </Colum_simple>
                 </Row_simple>
             </View>
 
             <View style={styles.container}>
-                <View style={{marginTop: 50 }}>
+                <View style={{ marginTop: 50 }}>
                     <Pressable android_ripple={{ color: "#3b3b3b" }}
                         onPress={() => navigation.navigate("RegisterProduction")} style={styles.acontainer}>
                         <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
