@@ -6,13 +6,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loading from './app/screens/loading';
 import LoginStack from './app/navigator/loginStack'
 import HomeStack from './app/navigator/SideBar/homeStack';
+import { getListRegisters } from './app/utils/AsyncStore';
+import { SaveListRegisters } from './app/actions/ProductionActions';
 
 const Stack = createStackNavigator();
 const Routes_init = () => {
 
     /*****/
+    const dispatch = useDispatch();
     const LoginState = useSelector(reducers => reducers.loginReducer).Login;
     console.log('que hay:', LoginState);
+    useEffect(() => {
+        async function getList() {
+            const list = await getListRegisters()
+            console.log("lista de registros:", list)
+            if (list) dispatch(SaveListRegisters(list))
+        }
+        getList();
+    }, [])
 
 
     return (

@@ -6,7 +6,8 @@ export const optionsImagePicker = {
       path: 'images',
     },
     maxHeight: 400,
-    maxWidth: 400
+    maxWidth: 400,
+    includeBase64: true
   };
   
   
