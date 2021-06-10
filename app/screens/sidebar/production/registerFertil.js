@@ -6,6 +6,8 @@ import Colum_simple from '../../../utils/components/colum_simple'
 import Icon2 from 'react-native-vector-icons/AntDesign';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { optionsImagePicker } from '../../../utils/others';
+import { AddRegistersFertilizantes } from '../../../actions/ProductionActions';
+import { useDispatch, useSelector } from 'react-redux';
 export default function RegisterFertil(props) {
     const navigation = useNavigation()
     const [avatarSource, setAvatarSource] = useState(null)
@@ -13,14 +15,19 @@ export default function RegisterFertil(props) {
     const [cantidad, setCantidad] = useState('')
     const [cantidad2, setCantidad2] = useState('')
     const [cantidad3, setCantidad3] = useState('')
+    const [costofer, setCostoFer] = useState('')
+    const [costoabo, setCostoAbo] = useState('')
     const [persona, setPersona] = useState('')
     const [tipoPalta, setTipoPalta] = useState('')
-    const [ list , setList ] = useState([])
-    console.log("hola");
+    const [list, setList] = useState([])
+    const dispatch = useDispatch();
+
+    const listas  = useSelector(reducers => reducers.ProductionReducer).ListFertilizantes;
+    console.log(listas);
 
     const onSubmmit = () => {
         console.log("aaaaaa");
-        if (!cantidad || !cantidad2 || !cantidad3 || !avatarSource || !avatarSource1) {
+        if (!persona || !cantidad2 || !cantidad3 || !costofer || !costoabo || !avatarSource || !avatarSource1) {
             console.log("entreeee");
             return Alert.alert(
                 "Alerta",
@@ -28,6 +35,17 @@ export default function RegisterFertil(props) {
                 [{ text: "Aceptar", style: "default" }]
             )
         }
+        dispatch(AddRegistersFertilizantes(persona, cantidad2, cantidad3, costofer, costoabo, avatarSource, avatarSource1))
+        Alert.alert(
+            "Satisfactorio",
+            "Nuevo registro de fertilizantes y abono creado",
+            [
+                {
+                    text: "Ok",
+                    onPress: () => navigation.goBack()
+                }
+            ]
+        )
     }
 
     function selectImg() {
@@ -82,62 +100,92 @@ export default function RegisterFertil(props) {
                 <View style={styles.container}>
                     <Row_simple mar_top={30}>
                         <View>
-                            <Text style={{ fontSize: 20 }}>Encargardo de Fertilizante</Text>
-                            <View style={styles.container_input}>
-                                <TextInput
-                                    placeholder=''
-                                    keyboardType="default"
-                                    onChangeText={(e) => setCantidad(e)}
-                                    style={styles.input}
-                                />
+                            <View>
+                                <Text style={{ fontSize: 20 }}>Encarg.de Fertiliz.</Text>
+                                <View style={styles.container_input}>
+                                    <TextInput
+                                        placeholder=''
+                                        keyboardType="default"
+                                        onChangeText={(e) => setPersona(e)}
+                                        style={styles.input}
+                                    />
+                                </View>
                             </View>
-                            <Text style={{ fontSize: 20 }}>Tipo de Fertilizante</Text>
-                            <View style={styles.container_input}>
-                                <TextInput
-                                    placeholder=''
-                                    keyboardType="default"
-                                    onChangeText={(e) => setCantidad2(e)}
-                                    style={styles.input}
-                                />
+                            <View>
+                                <Text style={{ fontSize: 20 }}>Tipo de Fertiliz.</Text>
+                                <View style={styles.container_input}>
+                                    <TextInput
+                                        placeholder=''
+                                        keyboardType="default"
+                                        onChangeText={(e) => setCantidad2(e)}
+                                        style={styles.input}
+                                    />
+                                </View>
                             </View>
-                            <Text style={{ fontSize: 20 }}>Tipo de abono</Text>
-                            <View style={styles.container_input}>
-                                <TextInput
-                                    placeholder=''
-                                    keyboardType="default"
-                                    onChangeText={(e) => setCantidad3(e)}
-                                    style={styles.input}
-                                />
+                            <View>
+                                <Text style={{ fontSize: 20 }}>Tipo de abono</Text>
+                                <View style={styles.container_input}>
+                                    <TextInput
+                                        placeholder=''
+                                        keyboardType="default"
+                                        onChangeText={(e) => setCantidad3(e)}
+                                        style={styles.input}
+                                    />
+                                </View>
                             </View>
-                            <View style={{}}>
-                            <Text style={{ fontSize: 20, color: 'white' }}>Añadir Imagen 1</Text>
-                            <Pressable style={{ position: "relative", marginBottom: 15 }} onPress={() => selectImg()}>
-                                {avatarSource ?
-                                    <Image source={avatarSource} style={styles.img} /> :
-                                    <Image source={require("../../../../assets/img-image.png")} style={styles.img} />}
-                            </Pressable>
+                            <View>
+                                <Text style={{ fontSize: 20 }}>Costo de fertiliz.</Text>
+                                <View style={styles.container_input}>
+                                    <TextInput
+                                        placeholder=''
+                                        keyboardType="default"
+                                        onChangeText={(e) => setCostoFer(e)}
+                                        style={styles.input}
+                                    />
+                                </View>
+                            </View>
+                            <View>
+                                <Text style={{ fontSize: 20 }}>Costo de abono</Text>
+                                <View style={styles.container_input}>
+                                    <TextInput
+                                        placeholder=''
+                                        keyboardType="default"
+                                        onChangeText={(e) => setCostoAbo(e)}
+                                        style={styles.input}
+                                    />
+                                </View>
+                            </View>
                         </View>
-                        <View style={{}}>
-                            <Text style={{ fontSize: 20, color: 'white' }}>Añadir Imagen 2</Text>
-                            <Pressable style={{ position: "relative", marginBottom: 15 }} onPress={() => selectImg2()}>
-                                {avatarSource1 ?
-                                    <Image source={avatarSource1} style={styles.img} /> :
-                                    <Image source={require("../../../../assets/img-image.png")} style={styles.img} />}
-                            </Pressable>
+                        <View>
+                            <View style={{ display: 'flex', alignItems: 'center'}}>
+                                <Text style={{ fontSize: 20, color: 'white' }}>Añadir Imagen 1</Text>
+                                <Pressable style={{ position: "relative", marginBottom: 15 }} onPress={() => selectImg()}>
+                                    {avatarSource ?
+                                        <Image source={avatarSource} style={styles.img} /> :
+                                        <Image source={require("../../../../assets/img-image.png")} style={styles.img} />}
+                                </Pressable>
+                            </View>
+                            <View style={{ display: 'flex', alignItems: 'center'}}>
+                                <Text style={{ fontSize: 20, color: 'white' }}>Añadir Imagen 2</Text>
+                                <Pressable style={{ position: "relative", marginBottom: 15 }} onPress={() => selectImg2()}>
+                                    {avatarSource1 ?
+                                        <Image source={avatarSource1} style={styles.img} /> :
+                                        <Image source={require("../../../../assets/img-image.png")} style={styles.img} />}
+                                </Pressable>
+                            </View>
                         </View>
-                        </View>
-                        
+
                     </Row_simple>
-                    
-                    
-                    <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+
+
+                    <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 30 }}>
                         <View style={styles.containerBtn}>
                             <Pressable onPress={() => onSubmmit()} style={{ width: "100%", display: 'flex', alignItems: 'center', justifyContent: 'center' }} android_ripple={{ color: "#fff" }}>
                                 <Text style={styles.textbtn}>Registrar</Text>
                             </Pressable>
                         </View>
                     </View>
-                
+
 
                 </View>
             </ScrollView>
@@ -150,7 +198,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     container: {
-        paddingHorizontal: 20
+        paddingHorizontal: 15
     },
     container2: {
         flex: 1,

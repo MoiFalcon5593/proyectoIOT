@@ -148,7 +148,45 @@ export const storeListRegisters = async (value) => {
 export const getListRegisters = async () => {
     try {
         const jsonValue = await AsyncStorage.getItem('@listRegisters')
-        return jsonValue != null ? JSON.parse(jsonValue) : {};
+        return jsonValue != null ? JSON.parse(jsonValue) : [];
+    } catch (e) {
+        console.log(e)
+        return false
+    }
+}
+
+export const storeListRiesgo = async (value) => {
+    try {
+        const jsonValue = JSON.stringify(value)
+        await AsyncStorage.setItem('@listRiesgo', jsonValue)
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const getListRiesgo = async () => {
+    try {
+        const jsonValue = await AsyncStorage.getItem('@listRiesgo')
+        return jsonValue != null ? JSON.parse(jsonValue) : [];
+    } catch (e) {
+        console.log(e)
+        return false
+    }
+}
+
+export const storeListFertilizantes = async (value) => {
+    try {
+        const jsonValue = JSON.stringify(value)
+        await AsyncStorage.setItem('@listFer', jsonValue)
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const getListFertilizantes = async () => {
+    try {
+        const jsonValue = await AsyncStorage.getItem('@listFer')
+        return jsonValue != null ? JSON.parse(jsonValue) : [];
     } catch (e) {
         console.log(e)
         return false

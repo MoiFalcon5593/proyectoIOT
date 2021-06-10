@@ -12,3 +12,5 @@ export const SAVE_CLOSING_SESSION = 'SAVE_CLOSING_SESSION'
 //REGISTERPRODUCCTION
 
 export const SAVE_LIST_PRODUCCTION = 'save_list_producction'
+export const SAVE_LIST_FERTILIZANTES = 'save_list_fertilizantes'
+export const SAVE_LIST_RIESGO = 'save_list_riesgo'

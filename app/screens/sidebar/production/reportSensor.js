@@ -6,7 +6,8 @@ import Row_simple from '../../../utils/components/row_simple'
 import DatePicker from 'react-native-datepicker'
 import { DataTable } from 'react-native-paper';
 import Slider from "react-native-slider";
-import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import Icon2 from 'react-native-vector-icons/AntDesign';
+import Colum_simple from '../../../utils/components/colum_simple';
 
 export default function ReportSensor(props) {
     const navigation = useNavigation()
@@ -16,12 +17,10 @@ export default function ReportSensor(props) {
     const [tablahead, setTablaHead] = useState(['Id', 'Alcalinidad', 'Humedad'])
     const [tabladata, setTablaData] = useState([])
     const [data, setTData] = useState(null)
-    console.log(date);
     useEffect(() => {
         async function getData() {
             try {
                 const res = await Axios.get(url_data)
-                console.log("res:", res.data.objModel)
                 setTablaData(res.data.objModel)
                 res.data.objModel.map((item, idx) => {
                     if (idx === res.data.objModel.length - 1) {
@@ -35,7 +34,6 @@ export default function ReportSensor(props) {
         }
         getData()
     }, [tabladata]);
-    console.log(date);
     return (
         <View style={styles.fathercontainer}>
             <ImageBackground style={styles.containerhead} source={require("../../../../assets/bg-home.png")}>
@@ -48,56 +46,76 @@ export default function ReportSensor(props) {
                 </View>
                 <ScrollView style={styles.container}>
                     <View style={{ marginTop: 30 }}>
-                        <Pressable android_ripple={{ color: "#3b3b3b" }}
-                            onPress={() => navigation.navigate("GraficSensor", { tipo: 'Niveles de Humedad' })}>
-                            <Text style={{ marginBottom: 20, textAlign: 'center' }}>Nivel de Humedad: {date} (%)</Text>
-                            <Slider
-                                style={{ width: '100%', height: 40, marginBottom: 20 }}
-                                minimumValue={0}
-                                value={date}
-                                disabled
-                                maximumValue={100}
-                                minimumTrackTintColor="#FFFFFF"
-                                maximumTrackTintColor="#000000"
-                                thumbStyle={{ height: 80, width: 20 }}
-                                thumbTintColor="red"
-                                trackStyle={{ height: 60 }}
-                            />
-                            <Row_simple>
-                                <View>
-                                    <Text>0</Text>
-                                </View>
-                                <View>
-                                    <Text>100</Text>
-                                </View>
-                            </Row_simple>
-                        </Pressable>
+                        <Row_simple jus_cont={'center'} alitems={'space-between'} flex={1}>
+                            <Colum_simple flex={0.9}>
+                                <Pressable android_ripple={{ color: "#3b3b3b" }}
+                                    onPress={() => navigation.navigate("GraficSensor", { tipo: 'Niveles de Humedad' })}>
+                                    <Text style={{ marginBottom: 20, textAlign: 'center' }}>Nivel de Humedad: {date} (%)</Text>
+                                    <Slider
+                                        style={{ width: '100%', height: 40, marginBottom: 20 }}
+                                        minimumValue={0}
+                                        value={date}
+                                        disabled
+                                        maximumValue={100}
+                                        minimumTrackTintColor="#FFFFFF"
+                                        maximumTrackTintColor="#000000"
+                                        thumbStyle={{ height: 80, width: 20 }}
+                                        thumbTintColor="red"
+                                        trackStyle={{ height: 60 }}
+                                    />
+                                    <Row_simple>
+                                        <View>
+                                            <Text>0</Text>
+                                        </View>
+                                        <View>
+                                            <Text>100</Text>
+                                        </View>
+                                    </Row_simple>
+                                </Pressable>
+                            </Colum_simple>
+                            <Colum_simple alitems={'flex-end'} jus_cont={'center'} flex={0.1}>
+                                <Pressable android_ripple={{ color: "#3b3b3b" }}
+                                    onPress={() => navigation.navigate("RegisterRiesgo")}>
+                                    <Icon2 name='right' color={"#3b3b3b"} size={30} />
+                                </Pressable>
+                            </Colum_simple>
+                        </Row_simple>
                     </View>
                     <View style={{ marginTop: 30 }}>
-                        <Pressable android_ripple={{ color: "#3b3b3b" }}
-                            onPress={() => navigation.navigate("GraficSensor", { tipo: 'Niveles de Alcalinidad' })}>
-                            <Text style={{ marginBottom: 20, textAlign: 'center' }}>Nivel de Alcalinidad: {date1}</Text>
-                            <Slider
-                                style={{ width: '100%', height: 40, marginBottom: 20 }}
-                                minimumValue={0}
-                                value={date1}
-                                disabled
-                                maximumValue={7}
-                                minimumTrackTintColor="#FFFFFF"
-                                maximumTrackTintColor="#000000"
-                                thumbStyle={{ height: 80, width: 20 }}
-                                thumbTintColor="red"
-                                trackStyle={{ height: 60 }}
-                            />
-                            <Row_simple>
-                                <View>
-                                    <Text>0</Text>
-                                </View>
-                                <View>
-                                    <Text>7</Text>
-                                </View>
-                            </Row_simple>
-                        </Pressable>
+                        <Row_simple jus_cont={'center'} alitems={'space-between'} flex={1}>
+                            <Colum_simple flex={0.9}>
+                                <Pressable android_ripple={{ color: "#3b3b3b" }}
+                                    onPress={() => navigation.navigate("GraficSensor", { tipo: 'Niveles de Alcalinidad' })}>
+                                    <Text style={{ marginBottom: 20, textAlign: 'center' }}>Nivel de Alcalinidad: {date1}</Text>
+                                    <Slider
+                                        style={{ width: '100%', height: 40, marginBottom: 20 }}
+                                        minimumValue={0}
+                                        value={date1}
+                                        disabled
+                                        maximumValue={7}
+                                        minimumTrackTintColor="#FFFFFF"
+                                        maximumTrackTintColor="#000000"
+                                        thumbStyle={{ height: 80, width: 20 }}
+                                        thumbTintColor="red"
+                                        trackStyle={{ height: 60 }}
+                                    />
+                                    <Row_simple>
+                                        <View>
+                                            <Text>0</Text>
+                                        </View>
+                                        <View>
+                                            <Text>7</Text>
+                                        </View>
+                                    </Row_simple>
+                                </Pressable>
+                            </Colum_simple>
+                            <Colum_simple alitems={'flex-end'} jus_cont={'center'} flex={0.1}>
+                                <Pressable android_ripple={{ color: "#3b3b3b" }}
+                                    onPress={() => navigation.navigate("RegisterFertil")}>
+                                    <Icon2 name='right' color={"#3b3b3b"} size={30} />
+                                </Pressable>
+                            </Colum_simple>
+                        </Row_simple>
                     </View>
                 </ScrollView>
             </ImageBackground>
