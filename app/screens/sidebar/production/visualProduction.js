@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Pressable, ImageBackground, StyleSheet, TextInput, Image } from 'react-native';
+import { View, Text, Pressable, ImageBackground, StyleSheet, TextInput, Image, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Row_simple from '../../../utils/components/row_simple'
 import DatePicker from 'react-native-datepicker'
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import Colum_simple from '../../../utils/components/colum_simple';
+import ListRegister from './components/listRegisters'
+import { useSelector } from 'react-redux';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function VisualProduction(props) {
     const navigation = useNavigation()
@@ -17,6 +21,7 @@ export default function VisualProduction(props) {
         ['16-05-21', '2', '3.20', 'Hass', 'Luis'],
         ['16-05-21', '2', '3.20', 'Hass', 'Luis'],
     ])
+    const  listas  = useSelector(reducers => reducers.ProductionReducer).ListProduction;
     return (
         <ImageBackground style={styles.containerhead} source={require("../../../../assets/bg-home.png")}>
             <View style={styles.top}>
@@ -54,12 +59,15 @@ export default function VisualProduction(props) {
                         </View>
                     </View>
                 </Row_simple>
-                <View style={{marginTop: 50}}>
-                <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
-                    <Row data={tablahead} style={styles.head} textStyle={styles.text} />
-                    <Rows data={tabladata} textStyle={styles.text} />
-                </Table>
+                <View style={{ marginTop: 80, marginBottom: 20 }}>
+                    <FlatList
+                        data={listas}
+                        horizontal={false}
+                        renderItem={({ item }) => <ListRegister data={item}  />}
+                        keyExtractor={(item, idx) => idx.toString()}
+                    />
                 </View>
+
             </View>
         </ImageBackground>
     );
@@ -88,16 +96,22 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
     },
-    head: { 
-        height: 60, 
-        backgroundColor: '#f1f8ff' 
+    head: {
+        height: 60,
+        backgroundColor: '#f1f8ff'
     },
-    text: { 
-        margin: 6 ,
+    text: {
+        margin: 6,
         textAlign: 'center'
     },
     container_sec: {
         margin: 20
+    },
+    img_contac2: {
+        marginRight: "auto",
+        marginLeft: "auto",
+        height: 75,
+        width: 45
     },
     txt_white: {
         color: '#fff',

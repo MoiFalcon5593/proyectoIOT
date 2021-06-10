@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { SaveLogin, SaveUser } from '../../actions/loginActions';
+import { storeUserData } from '../../utils/AsyncStore';
 export default function Login(props) {
     const navigation = useNavigation()
     const dispatch = useDispatch();
@@ -28,6 +29,7 @@ export default function Login(props) {
             if(res.data.objModel.length > 0) {
                 dispatch(SaveUser(res.data.objModel))
                 dispatch(SaveLogin(true))
+                await storeUserData(res.data.objModel)
             }else{
                 return Alert.alert(
                     "Alerta",

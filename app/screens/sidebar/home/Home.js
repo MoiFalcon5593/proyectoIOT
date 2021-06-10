@@ -1,23 +1,45 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, Pressable, ImageBackground, StyleSheet, TextInput, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Row_simple from '../../../utils/components/row_simple'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { SaveLogin, SaveUser } from '../../../actions/loginActions';
+import Colum_simple from '../../../utils/components/colum_simple';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Col } from 'react-native-table-component';
 export default function Home(props) {
     const navigation = useNavigation()
     const dispatch = useDispatch();
     console.log("nadaa");
+    const user = useSelector(reducers => reducers.loginReducer).User;
+    const [name, setName] = useState('')
     const onLogout = async () => {
         dispatch(SaveLogin(null))
         dispatch(SaveUser(null))
     }
 
+    useEffect(() => {
+        if (user) {
+            setName(user[0].usuario)
+        }
+    }, [])
+
     return (
         <ImageBackground style={styles.containerhead} source={require("../../../../assets/bg-home.png")}>
             <View style={styles.top}>
-                <Text style={styles.txt_white}>Name User</Text>
+                <Row_simple jus_cont={'space-between'} flex={1}>
+                    <Colum_simple jus_cont={'center'} alitems={'flex-end'} flex={1} >
+                        <Text style={styles.txt_white}>{name}</Text>
+                    </Colum_simple>
+                    <Colum_simple alitems={'flex-end'} jus_cont={'center'} flex={1}>
+                        <Pressable android_ripple={{ color: "#3b3b3b" }} onPress={() => onLogout()} >
+                            <Row_simple mar_top={20} mar_bot={20}>
+                                <Image source={require('../../../../assets/exit.png')} style={{ width: 50, height: 50 }}></Image>
+                            </Row_simple>
+                        </Pressable>
+                    </Colum_simple>
+                </Row_simple>
             </View>
 
             <View style={styles.container}>
@@ -40,7 +62,7 @@ export default function Home(props) {
                     </Row_simple>
                 </Pressable>
                 <Pressable android_ripple={{ color: "#3b3b3b" }}
-                onPress={() => navigation.navigate("ReportSensor")} style={styles.acontainer}>
+                    onPress={() => navigation.navigate("ReportSensor")} style={styles.acontainer}>
                     <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
                         <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
                         <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
@@ -49,7 +71,7 @@ export default function Home(props) {
                     </Row_simple>
                 </Pressable>
                 <Pressable android_ripple={{ color: "#3b3b3b" }}
-                onPress={() => navigation.navigate("RegisterRiesgo")} style={styles.acontainer}>
+                    onPress={() => navigation.navigate("RegisterRiesgo")} style={styles.acontainer}>
                     <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
                         <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
                         <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
@@ -58,7 +80,7 @@ export default function Home(props) {
                     </Row_simple>
                 </Pressable>
                 <Pressable android_ripple={{ color: "#3b3b3b" }}
-                onPress={() => navigation.navigate("RegisterFertil")} style={styles.acontainer}>
+                    onPress={() => navigation.navigate("RegisterFertil")} style={styles.acontainer}>
                     <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
                         <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
                         <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
@@ -66,11 +88,7 @@ export default function Home(props) {
                         </View>
                     </Row_simple>
                 </Pressable>
-                <Pressable android_ripple={{ color: "#3b3b3b" }} onPress={() => onLogout()} style={styles.abcontainer}>
-                    <Row_simple mar_top={20} mar_bot={20}>
-                        <Image source={require('../../../../assets/exit.png')} style={{ width: 80, height: 80 }}></Image>
-                    </Row_simple>
-                </Pressable>
+
             </View>
         </ImageBackground>
     );
@@ -88,12 +106,14 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     top: {
-        justifyContent: 'center',
+        flexDirection: 'row',
+        display: 'flex',
         alignItems: 'center',
         borderBottomColor: '#fff',
         borderBottomWidth: 1,
         width: '100%',
         height: 100,
+        paddingHorizontal: 20
     },
     centro_cont: {
         display: 'flex',
@@ -109,7 +129,7 @@ const styles = StyleSheet.create({
     },
     acontainer: {
         width: '60%',
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         display: 'flex',
         justifyContent: 'center',
         marginBottom: 20,
@@ -117,11 +137,6 @@ const styles = StyleSheet.create({
         borderColor: '#3b3b3b',
         borderWidth: 2
 
-    },
-    abcontainer: {
-        display: 'flex',
-        justifyContent: 'center',
-        marginBottom: 20,
     },
     txt_center: {
         textAlign: 'center',

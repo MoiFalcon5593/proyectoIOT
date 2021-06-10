@@ -18,7 +18,8 @@ export default function RegisterProduction(props) {
     const [persona, setPersona] = useState('')
     const [tipoPalta, setTipoPalta] = useState('')
     const [precio, setPrecio] = useState('')
-    const  listas  = useSelector(reducers => reducers.ProductionReducer).ListProduction;
+    const listas  = useSelector(reducers => reducers.ProductionReducer).ListProduction;
+    console.log(listas);
     const onSummit = async () => {
         if (!cantidad || !persona) {
             return Alert.alert(
@@ -28,6 +29,16 @@ export default function RegisterProduction(props) {
             )
         }
         dispatch(AddRegisters(cantidad, precio, foto, tipoPalta, persona, avatarSource))
+        Alert.alert(
+            "Satisfactorio",
+            "Nuevo registro creado",
+            [
+                {
+                    text: "Ok",
+                    onPress: () => navigation.goBack()
+                }
+            ]
+        )
     }
 
     function selectImg() {

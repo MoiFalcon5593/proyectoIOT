@@ -6,8 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loading from './app/screens/loading';
 import LoginStack from './app/navigator/loginStack'
 import HomeStack from './app/navigator/SideBar/homeStack';
-import { getListRegisters } from './app/utils/AsyncStore';
+import { getListRegisters, getUserData } from './app/utils/AsyncStore';
 import { SaveListRegisters } from './app/actions/ProductionActions';
+import { SaveLogin, SaveUser } from './app/actions/loginActions';
 
 const Stack = createStackNavigator();
 const Routes_init = () => {
@@ -19,8 +20,18 @@ const Routes_init = () => {
     useEffect(() => {
         async function getList() {
             const list = await getListRegisters()
+            const user = await getUserData()
             console.log("lista de registros:", list)
+            console.log("usuario?:", user)
             if (list) dispatch(SaveListRegisters(list))
+            if (user) {
+                dispatch(SaveUser(user))
+                dispatch(SaveLogin(true))
+
+            } else {
+                dispatch(SaveLogin(null))
+                dispatch(SaveUser(null))
+            }
         }
         getList();
     }, [])
