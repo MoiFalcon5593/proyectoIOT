@@ -9,6 +9,10 @@ export default (state = INIT_STATE, action) => {
     switch (action.type) {
 
         case SAVE_LIST_PRODUCCTION:
+            async function save() {
+                await storeListRegisters(action.payload)
+            }
+            save()
             return { ...state, ListProduction: action.payload };
             
         default: return { ...state };
