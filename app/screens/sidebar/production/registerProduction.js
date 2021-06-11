@@ -18,7 +18,7 @@ export default function RegisterProduction(props) {
     const [persona, setPersona] = useState('')
     const [tipoPalta, setTipoPalta] = useState('')
     const [precio, setPrecio] = useState('')
-    const listas  = useSelector(reducers => reducers.ProductionReducer).ListProduction;
+    const listas = useSelector(reducers => reducers.ProductionReducer).ListProduction;
     console.log(listas);
     const onSummit = async () => {
         if (!cantidad || !persona || !precio || !foto || !tipoPalta || !avatarSource) {
@@ -28,7 +28,11 @@ export default function RegisterProduction(props) {
                 [{ text: "Aceptar", style: "default" }]
             )
         }
-        dispatch(AddRegisters(cantidad, precio, foto, tipoPalta, persona, avatarSource))
+        var today = new Date();
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var dateTime = date + ' ' + time;
+        dispatch(AddRegisters(cantidad, precio, foto, tipoPalta, persona, avatarSource, dateTime))
         Alert.alert(
             "Satisfactorio",
             "Nuevo registro creado",

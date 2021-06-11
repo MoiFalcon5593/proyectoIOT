@@ -2,10 +2,10 @@ import { SAVE_LIST_FERTILIZANTES, SAVE_LIST_PRODUCCTION, SAVE_LIST_RIESGO } from
 import React, { useEffect, useState } from 'react'
 import { check, PERMISSIONS, RESULTS } from 'react-native-permissions';
 
-export const AddRegisters = (cantidad, precio, foto, tipoPalta, persona, avatarSource) => async (dispatch, getState) => {
+export const AddRegisters = (cantidad, precio, foto, tipoPalta, persona, avatarSource, dateTime) => async (dispatch, getState) => {
     let { ListProduction } = getState().ProductionReducer;
     console.log(ListProduction);
-    ListProduction.push({ cantidad, precio, foto, tipoPalta, persona, avatarSource })
+    ListProduction.push({ cantidad, precio, foto, tipoPalta, persona, avatarSource, dateTime })
     dispatch({
         type: SAVE_LIST_PRODUCCTION,
         payload: ListProduction

@@ -72,7 +72,7 @@ export default function ReportMonitoreo(props) {
                 <Text style={styles.txt_white}>Control de Monitoreo</Text>
             </View>
             <View>
-                <Text style={{ textAlign: 'center', fontSize: 20, marginTop: 40, color: 'white', marginBottom: 40 }}>KPI</Text>
+                <Text style={{ textAlign: 'center', fontSize: 30, marginTop: 40, color: 'white', marginBottom: 40 }}>KPI</Text>
                 <View style={styles.centro_cont}>
                     <Text style={{fontSize:16, color:'white'}}>Índice de crecimiento de la producción: 2.5</Text>
                 </View>

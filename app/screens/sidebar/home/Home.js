@@ -18,6 +18,8 @@ export default function Home(props) {
     const onLogout = async () => {
         dispatch(SaveLogin(null))
         dispatch(SaveUser(null))
+        const keysToDelete = ["@user", "@listRegisters", "@listRiesgo", "@listFer"]
+        await AsyncStorage.multiRemove(keysToDelete)
     }
 
     useEffect(() => {
