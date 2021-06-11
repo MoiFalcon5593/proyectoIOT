@@ -22,6 +22,7 @@ export default function VisualProduction(props) {
         ['16-05-21', '2', '3.20', 'Hass', 'Luis'],
     ])
     const  listas  = useSelector(reducers => reducers.ProductionReducer).ListProduction;
+    console.log(listas);
     return (
         <ImageBackground style={styles.containerhead} source={require("../../../../assets/bg-home.png")}>
             <View style={styles.top}>

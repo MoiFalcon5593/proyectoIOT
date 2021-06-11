@@ -7,7 +7,7 @@ import Row_simple from '../../../../utils/components/row_simple';
 import Icon2 from 'react-native-vector-icons/AntDesign';
 const ListRegister = ({ data }) => {
 
-    const { avatarSource, cantidad, precio, persona } = data
+    const { avatarSource, cantidad, precio, persona, dateTime } = data
 
     return (
         <View style={styles.container}>
@@ -19,7 +19,7 @@ const ListRegister = ({ data }) => {
                     <Row_simple flex={1} mar_l={10}>
                         <Colum_simple jus_cont={'center'} flex={1}>
                             <Colum_simple>
-                                <Text style={{ fontFamily: "Metropolis-Bold", color: "black", fontSize: 14 }} >FECHA</Text>
+                                <Text style={{ fontFamily: "Metropolis-Bold", color: "black", fontSize: 14 }} >{dateTime}</Text>
                             </Colum_simple>
                             <Row_simple >
                                 <Colum_simple flex={0.3}>
