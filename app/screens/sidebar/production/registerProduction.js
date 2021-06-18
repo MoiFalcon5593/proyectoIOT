@@ -4,24 +4,27 @@ import { useNavigation } from '@react-navigation/native';
 import Row_simple from '../../../utils/components/row_simple'
 import Colum_simple from '../../../utils/components/colum_simple'
 import Icon2 from 'react-native-vector-icons/AntDesign';
+import Icon3 from 'react-native-vector-icons/MaterialIcons';
+import CurrencyInput from 'react-native-currency-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { optionsImagePicker } from '../../../utils/others';
 import { AddRegisters } from '../../../actions/ProductionActions';
+import { Picker } from '@react-native-community/picker';
 export default function RegisterProduction(props) {
 
     const dispatch = useDispatch();
     const navigation = useNavigation()
     const [avatarSource, setAvatarSource] = useState(null)
     const [foto, setFoto] = useState(null)
-    const [cantidad, setCantidad] = useState('')
+    const [cantidad, setCantidad] = useState('0.00')
     const [persona, setPersona] = useState('')
     const [tipoPalta, setTipoPalta] = useState('')
-    const [precio, setPrecio] = useState('')
+    const [precio, setPrecio] = useState('0.00')
     const listas = useSelector(reducers => reducers.ProductionReducer).ListProduction;
     console.log(listas);
     const onSummit = async () => {
-        if (!cantidad || !persona || !precio || !foto || !tipoPalta || !avatarSource) {
+        if (cantidad == "0.00" || !persona || precio == '0.00' || !foto || !tipoPalta || !avatarSource) {
             return Alert.alert(
                 "Alerta",
                 "Llene todo los campos",
@@ -82,45 +85,51 @@ export default function RegisterProduction(props) {
                             <View>
                                 <Text style={{ fontSize: 20 }}>Cant. Prod</Text>
                                 <View style={styles.container_input}>
-                                    <TextInput
-                                        placeholder=''
-                                        keyboardType="default"
-                                        onChangeText={(e) => setCantidad(e)}
-                                        style={styles.input}
-                                    />
+                                <CurrencyInput style={styles.input} value={cantidad} delimiter="," separator="." onChangeValue={setCantidad} onChangeText={(formattedValue) => { if (formattedValue == "") { setCantidad("0.00") } }} precision={2} />
                                 </View>
                             </View>
                             <View>
-                                <Text style={{ fontSize: 20 }}>Tipo de palta</Text>
-                                <View style={styles.container_input}>
-                                    <TextInput
-                                        placeholder=''
-                                        keyboardType="default"
-                                        onChangeText={(e) => setTipoPalta(e)}
-                                        style={styles.input}
-                                    />
+                                <Text style={{ fontSize: 20 }}>Tipo de palt</Text>
+                                <View style={styles.row} flex={1}>
+                                    <View style={styles.container_input3} flex={1}>
+                                        <Picker
+                                            enabled={true}
+                                            selectedValue={tipoPalta}
+                                            onValueChange={date => setTipoPalta(date)}
+                                            itemStyle={{ fontSize: 20, color: 'white' }}
+                                        >
+                                            <Picker.Item label="Tipo" value="" color="#a0aec0" />
+                                            <Picker.Item label="Fuerte" value="Fuerte" />
+                                            <Picker.Item label="Hass" value="Hass" />
+                                        </Picker>
+                                    </View>
+                                   
                                 </View>
                             </View>
                             <View>
                                 <Text style={{ fontSize: 20 }}>Precio</Text>
                                 <View style={styles.container_input}>
-                                    <TextInput
-                                        placeholder=''
-                                        keyboardType="default"
-                                        onChangeText={(e) => setPrecio(e)}
-                                        style={styles.input}
-                                    />
+                                <CurrencyInput style={styles.input} value={precio} delimiter="," separator="." onChangeValue={setPrecio} onChangeText={(formattedValue) => { if (formattedValue == "") { setPrecio("0.00") } }} precision={2} />
                                 </View>
                             </View>
                             <View>
                                 <Text style={{ fontSize: 20 }}>Pers. Encargada</Text>
-                                <View style={styles.container_input2}>
-                                    <TextInput
-                                        placeholder=''
-                                        keyboardType="default"
-                                        onChangeText={(e) => setPersona(e)}
-                                        style={styles.input}
-                                    />
+                                <View style={styles.row} flex={1}>
+                                    <View style={styles.container_input3} flex={1}>
+                                        <Picker
+                                            enabled={true}
+                                            selectedValue={persona}
+                                            onValueChange={date => setPersona(date)}
+                                            itemStyle={{ fontSize: 20, color: 'white' }}
+                                        >
+                                            <Picker.Item label="Persona" value="" color="#a0aec0" />
+                                            <Picker.Item label="Javier" value="Javier" />
+                                            <Picker.Item label="Fernando" value="Fernando" />
+                                            <Picker.Item label="Lucas" value="Lucas" />
+                                            <Picker.Item label="Edward" value="Edward" />
+
+                                        </Picker>
+                                    </View>
                                 </View>
                             </View>
                         </View>
@@ -240,6 +249,9 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         paddingHorizontal: 10
     },
+    container_input3: {
+        color: "#000"
+    },
     icon: {
         width: 40,
         height: 40
@@ -279,5 +291,17 @@ const styles = StyleSheet.create({
         width: 220,
         //justifyContent: "space-around",
         alignItems: "center"
-    }
+    },
+    row: {
+        display: 'flex',
+        alignItems: 'center',
+        width: 180,
+        borderWidth: 3,
+        borderColor: 'blue',
+        backgroundColor: 'transparent',
+        paddingHorizontal: 10,
+        flexDirection: "row",
+        marginTop: 5,
+        marginVertical: 10,
+    },
 })

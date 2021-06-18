@@ -8,26 +8,35 @@ import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { optionsImagePicker } from '../../../utils/others';
 import { AddRegistersFertilizantes } from '../../../actions/ProductionActions';
 import { useDispatch, useSelector } from 'react-redux';
+import { Picker } from '@react-native-community/picker';
+import CurrencyInput from 'react-native-currency-input';
+
 export default function RegisterFertil(props) {
     const navigation = useNavigation()
     const [avatarSource, setAvatarSource] = useState(null)
     const [avatarSource1, setAvatarSource1] = useState(null)
     const [cantidad, setCantidad] = useState('')
-    const [cantidad2, setCantidad2] = useState('')
-    const [cantidad3, setCantidad3] = useState('')
-    const [costofer, setCostoFer] = useState('')
-    const [costoabo, setCostoAbo] = useState('')
+    const [tipofer, setTipoFer] = useState('')
+    const [tipoabo, setTipoAbo] = useState('')
+    const [costofer, setCostoFer] = useState('0.00')
+    const [costoabo, setCostoAbo] = useState('0.00')
     const [persona, setPersona] = useState('')
     const [tipoPalta, setTipoPalta] = useState('')
     const [list, setList] = useState([])
     const dispatch = useDispatch();
 
-    const listas  = useSelector(reducers => reducers.ProductionReducer).ListFertilizantes;
+    const listas = useSelector(reducers => reducers.ProductionReducer).ListFertilizantes;
     console.log(listas);
+
+    const listas2 = useSelector(reducers => reducers.ProductionReducer).ListTipFertilizantes;
+    console.log("tipos de fer: ", listas2);
+
+    const listas3 = useSelector(reducers => reducers.ProductionReducer).ListTipRiesgo;
+    console.log("tipos de abono: ", listas3);
 
     const onSubmmit = () => {
         console.log("aaaaaa");
-        if (!persona || !cantidad2 || !cantidad3 || !costofer || !costoabo || !avatarSource || !avatarSource1) {
+        if (!persona || !tipofer || !tipoabo || costofer == '0.00' || costoabo == "0.00" || !avatarSource || !avatarSource1) {
             console.log("entreeee");
             return Alert.alert(
                 "Alerta",
@@ -35,7 +44,7 @@ export default function RegisterFertil(props) {
                 [{ text: "Aceptar", style: "default" }]
             )
         }
-        dispatch(AddRegistersFertilizantes(persona, cantidad2, cantidad3, costofer, costoabo, avatarSource, avatarSource1))
+        dispatch(AddRegistersFertilizantes(persona, tipofer, tipoabo, costofer, costoabo, avatarSource, avatarSource1))
         Alert.alert(
             "Satisfactorio",
             "Nuevo registro de fertilizantes y abono creado",
@@ -102,62 +111,81 @@ export default function RegisterFertil(props) {
                         <View>
                             <View>
                                 <Text style={{ fontSize: 20 }}>Encarg.de Fertiliz.</Text>
-                                <View style={styles.container_input}>
-                                    <TextInput
-                                        placeholder=''
-                                        keyboardType="default"
-                                        onChangeText={(e) => setPersona(e)}
-                                        style={styles.input}
-                                    />
+                                <View style={styles.row} flex={1}>
+                                    <View style={styles.container_input3} flex={1}>
+                                        <Picker
+                                            enabled={true}
+                                            selectedValue={persona}
+                                            onValueChange={date => setPersona(date)}
+                                            itemStyle={{ fontSize: 20, color: 'white' }}
+                                        >
+                                            <Picker.Item label="Persona" value="" color="#a0aec0" />
+                                            <Picker.Item label="Javier" value="Javier" />
+                                            <Picker.Item label="Fernando" value="Fernando" />
+                                            <Picker.Item label="Lucas" value="Lucas" />
+                                            <Picker.Item label="Edward" value="Edward" />
+
+                                        </Picker>
+                                    </View>
                                 </View>
                             </View>
                             <View>
                                 <Text style={{ fontSize: 20 }}>Tipo de Fertiliz.</Text>
-                                <View style={styles.container_input}>
-                                    <TextInput
-                                        placeholder=''
-                                        keyboardType="default"
-                                        onChangeText={(e) => setCantidad2(e)}
-                                        style={styles.input}
-                                    />
+                                <View style={styles.row} flex={1}>
+                                    <View style={styles.container_input3} flex={1}>
+                                        <Picker
+                                            enabled={true}
+                                            selectedValue={persona}
+                                            onValueChange={date => setTipoFer(date)}
+                                            itemStyle={{ fontSize: 20, color: 'white' }}
+                                        >
+                                            <Picker.Item label="Tipo de fert." value="" color="#a0aec0" />
+                                            {
+                                                listas2.map((item, idx) => (
+                                                    <Picker.Item label={item.nombre} value={idx} key={idx} color="#000" />
+                                                ))
+                                            }
+
+                                        </Picker>
+                                    </View>
                                 </View>
                             </View>
                             <View>
                                 <Text style={{ fontSize: 20 }}>Tipo de abono</Text>
-                                <View style={styles.container_input}>
-                                    <TextInput
-                                        placeholder=''
-                                        keyboardType="default"
-                                        onChangeText={(e) => setCantidad3(e)}
-                                        style={styles.input}
-                                    />
+                                <View style={styles.row} flex={1}>
+                                    <View style={styles.container_input3} flex={1}>
+                                        <Picker
+                                            enabled={true}
+                                            selectedValue={persona}
+                                            onValueChange={date => setTipoAbo(date)}
+                                            itemStyle={{ fontSize: 20, color: 'white' }}
+                                        >
+                                            <Picker.Item label="Tipo de abono" value="" color="#a0aec0" />
+                                            {
+                                                listas3.map((item, idx) => (
+                                                    <Picker.Item label={item.nombre} value={idx} key={idx} color="#000" />
+                                                ))
+                                            }
+
+                                        </Picker>
+                                    </View>
                                 </View>
                             </View>
                             <View>
                                 <Text style={{ fontSize: 20 }}>Costo de fertiliz.</Text>
                                 <View style={styles.container_input}>
-                                    <TextInput
-                                        placeholder=''
-                                        keyboardType="default"
-                                        onChangeText={(e) => setCostoFer(e)}
-                                        style={styles.input}
-                                    />
+                                <CurrencyInput style={styles.input} value={costofer} delimiter="," separator="." onChangeValue={setCostoFer} onChangeText={(formattedValue) => { if (formattedValue == "") { setCostoFer("0.00") } }} precision={2} />
                                 </View>
                             </View>
                             <View>
                                 <Text style={{ fontSize: 20 }}>Costo de abono</Text>
                                 <View style={styles.container_input}>
-                                    <TextInput
-                                        placeholder=''
-                                        keyboardType="default"
-                                        onChangeText={(e) => setCostoAbo(e)}
-                                        style={styles.input}
-                                    />
+                                <CurrencyInput style={styles.input} value={costoabo} delimiter="," separator="." onChangeValue={setCostoAbo} onChangeText={(formattedValue) => { if (formattedValue == "") { setCostoAbo("0.00") } }} precision={2} />
                                 </View>
                             </View>
                         </View>
                         <View>
-                            <View style={{ display: 'flex', alignItems: 'center'}}>
+                            <View style={{ display: 'flex', alignItems: 'center' }}>
                                 <Text style={{ fontSize: 20, color: 'white' }}>Añadir Imagen 1</Text>
                                 <Pressable style={{ position: "relative", marginBottom: 15 }} onPress={() => selectImg()}>
                                     {avatarSource ?
@@ -165,7 +193,7 @@ export default function RegisterFertil(props) {
                                         <Image source={require("../../../../assets/img-image.png")} style={styles.img} />}
                                 </Pressable>
                             </View>
-                            <View style={{ display: 'flex', alignItems: 'center'}}>
+                            <View style={{ display: 'flex', alignItems: 'center' }}>
                                 <Text style={{ fontSize: 20, color: 'white' }}>Añadir Imagen 2</Text>
                                 <Pressable style={{ position: "relative", marginBottom: 15 }} onPress={() => selectImg2()}>
                                     {avatarSource1 ?
@@ -321,5 +349,17 @@ const styles = StyleSheet.create({
         width: 220,
         //justifyContent: "space-around",
         alignItems: "center"
-    }
+    },
+    row: {
+        display: 'flex',
+        alignItems: 'center',
+        width: 180,
+        borderWidth: 3,
+        borderColor: 'blue',
+        backgroundColor: 'transparent',
+        paddingHorizontal: 10,
+        flexDirection: "row",
+        marginTop: 5,
+        marginVertical: 10,
+    },
 })
