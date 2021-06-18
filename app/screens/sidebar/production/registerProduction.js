@@ -19,7 +19,6 @@ export default function RegisterProduction(props) {
     const [tipoPalta, setTipoPalta] = useState('')
     const [precio, setPrecio] = useState('')
     const listas  = useSelector(reducers => reducers.ProductionReducer).ListProduction;
-    console.log(listas);
     const onSummit = async () => {
         if (!cantidad || !persona || !precio || !foto || !tipoPalta || !avatarSource) {
             return Alert.alert(
