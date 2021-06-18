@@ -3,8 +3,6 @@ import { View, Text, Pressable, ImageBackground, StyleSheet, TextInput, Image } 
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import Row_simple from '../../../utils/components/row_simple'
-import Icon from 'react-native-vector-icons/Ionicons';
-import Icon2 from 'react-native-vector-icons/AntDesign';
 import { SaveLogin, SaveUser } from '../../../actions/loginActions';
 import Colum_simple from '../../../utils/components/colum_simple';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -18,7 +16,7 @@ export default function Home(props) {
     const onLogout = async () => {
         dispatch(SaveLogin(null))
         dispatch(SaveUser(null))
-        const keysToDelete = ["@user", "@listRegisters", "@listRiesgo", "@listFer"]
+        const keysToDelete = ["@user"]
         await AsyncStorage.multiRemove(keysToDelete)
     }
 
@@ -33,9 +31,6 @@ export default function Home(props) {
             <View style={styles.top}>
                 <Row_simple jus_cont={'space-between'} flex={1}>
                     <Colum_simple jus_cont={'center'} alitems={'flex-start'} flex={1} >
-                        <Pressable android_ripple={{ color: "#3b3b3b" }} onPress={() => navigation.navigate("RegisterAccount")}>
-                            <Icon2 name='adduser' color={"#fff"} size={40} />
-                        </Pressable>
                     </Colum_simple>
                     <Colum_simple jus_cont={'center'} alitems={'center'} flex={1} >
                         <Text style={styles.txt_white}>{name}</Text>
@@ -47,47 +42,90 @@ export default function Home(props) {
                     </Colum_simple>
                 </Row_simple>
             </View>
-
-            <View style={styles.container}>
-                <View style={{ marginTop: 50 }}>
-                    <Pressable android_ripple={{ color: "#3b3b3b" }}
-                        onPress={() => navigation.navigate("RegisterProduction")} style={styles.acontainer}>
-                        <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
-                            <Image source={require('../../../../assets/pr.png')} style={{ width: 80, height: 80 }}></Image>
-                            <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
-                                <Text style={styles.txt_center}>Registrar {'\n'} Producción</Text>
-                            </View>
-                        </Row_simple>
-                    </Pressable>
-                    <Pressable android_ripple={{ color: "#3b3b3b" }}
-                        onPress={() => navigation.navigate("VisualProduction")} style={styles.acontainer}>
-                        <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
-                            <Image source={require('../../../../assets/lupita.png')} style={{ width: 80, height: 80 }}></Image>
-                            <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
-                                <Text style={styles.txt_center}>Visualizar {'\n'} Producción</Text>
-                            </View>
-                        </Row_simple>
-                    </Pressable>
-                    <Pressable android_ripple={{ color: "#3b3b3b" }}
-                        onPress={() => navigation.navigate("ReportSensor")} style={styles.acontainer}>
-                        <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
-                            <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
-                            <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
-                                <Text style={styles.txt_center}>Reporte de {'\n'} sensores</Text>
-                            </View>
-                        </Row_simple>
-                    </Pressable>
-                    <Pressable android_ripple={{ color: "#3b3b3b" }}
-                    onPress={() => navigation.navigate("ReportMonitoreo")} style={styles.acontainer}>
-                        <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
-                            <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
-                            <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
-                                <Text style={styles.txt_center}>Reporte de {'\n'} monitoreo</Text>
-                            </View>
-                        </Row_simple>
-                    </Pressable>
+            {name != "LUIS" &&
+                <View style={styles.container}>
+                    <View style={{ marginTop: 50 }}>
+                        <Pressable android_ripple={{ color: "#3b3b3b" }}
+                            onPress={() => navigation.navigate("RegisterProduction")} style={styles.acontainer}>
+                            <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
+                                <Image source={require('../../../../assets/pr.png')} style={{ width: 80, height: 80 }}></Image>
+                                <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    <Text style={styles.txt_center}>Registrar {'\n'} Producción</Text>
+                                </View>
+                            </Row_simple>
+                        </Pressable>
+                        <Pressable android_ripple={{ color: "#3b3b3b" }}
+                            onPress={() => navigation.navigate("VisualProduction")} style={styles.acontainer}>
+                            <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
+                                <Image source={require('../../../../assets/lupita.png')} style={{ width: 80, height: 80 }}></Image>
+                                <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    <Text style={styles.txt_center}>Visualizar {'\n'} Producción</Text>
+                                </View>
+                            </Row_simple>
+                        </Pressable>
+                        <Pressable android_ripple={{ color: "#3b3b3b" }}
+                            onPress={() => navigation.navigate("ReportSensor")} style={styles.acontainer}>
+                            <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
+                                <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
+                                <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    <Text style={styles.txt_center}>Reporte de {'\n'} sensores</Text>
+                                </View>
+                            </Row_simple>
+                        </Pressable>
+                        <Pressable android_ripple={{ color: "#3b3b3b" }}
+                            onPress={() => navigation.navigate("ReportMonitoreo")} style={styles.acontainer}>
+                            <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
+                                <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
+                                <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    <Text style={styles.txt_center}>Reporte de {'\n'} monitoreo</Text>
+                                </View>
+                            </Row_simple>
+                        </Pressable>
+                    </View>
                 </View>
-            </View>
+            }
+            {name == "LUIS" &&
+                <View style={styles.container}>
+                    <View style={{ marginTop: 50 }}>
+                        <Pressable android_ripple={{ color: "#3b3b3b" }}
+                            onPress={() => navigation.navigate("RegisterProduction")} style={styles.acontainer}>
+                            <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
+                                <Image source={require('../../../../assets/pr.png')} style={{ width: 80, height: 80 }}></Image>
+                                <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    <Text style={styles.txt_center}>Registrar {'\n'} Producción</Text>
+                                </View>
+                            </Row_simple>
+                        </Pressable>
+                        <Pressable android_ripple={{ color: "#3b3b3b" }}
+                            onPress={() => navigation.navigate("RegisterAccount")} style={styles.acontainer}>
+                            <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
+                                <Image source={require('../../../../assets/pr.png')} style={{ width: 80, height: 80 }}></Image>
+                                <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    <Text style={styles.txt_center}>Registro de {'\n'} Usuario</Text>
+                                </View>
+                            </Row_simple>
+                        </Pressable>
+                        <Pressable android_ripple={{ color: "#3b3b3b" }}
+                            onPress={() => navigation.navigate("RegisterFertilizante")} style={styles.acontainer}>
+                            <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
+                                <Image source={require('../../../../assets/lupita.png')} style={{ width: 80, height: 80 }}></Image>
+                                <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    <Text style={styles.txt_center}>Registro de {'\n'} Fertilizante</Text>
+                                </View>
+                            </Row_simple>
+                        </Pressable>
+                        <Pressable android_ripple={{ color: "#3b3b3b" }}
+                            onPress={() => navigation.navigate("RegisterAbono")} style={styles.acontainer}>
+                            <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
+                                <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
+                                <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    <Text style={styles.txt_center}>Registro de {'\n'} Abono</Text>
+                                </View>
+                            </Row_simple>
+                        </Pressable>
+                    </View>
+                </View>
+            }
         </ImageBackground>
     );
 }

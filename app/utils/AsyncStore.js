@@ -193,6 +193,44 @@ export const getListFertilizantes = async () => {
     }
 }
 
+export const storeListTipRiesgo = async (value) => {
+    try {
+        const jsonValue = JSON.stringify(value)
+        await AsyncStorage.setItem('@listTipRiesgo', jsonValue)
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const getListTipRiesgo = async () => {
+    try {
+        const jsonValue = await AsyncStorage.getItem('@listTipRiesgo')
+        return jsonValue != null ? JSON.parse(jsonValue) : [];
+    } catch (e) {
+        console.log(e)
+        return false
+    }
+}
+
+export const storeListTipFertilizantes = async (value) => {
+    try {
+        const jsonValue = JSON.stringify(value)
+        await AsyncStorage.setItem('@listTipFertilizantes', jsonValue)
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const getListTipFertilizantes = async () => {
+    try {
+        const jsonValue = await AsyncStorage.getItem('@listTipFertilizantes')
+        return jsonValue != null ? JSON.parse(jsonValue) : [];
+    } catch (e) {
+        console.log(e)
+        return false
+    }
+}
+
 //StoresByUser in Admin
 export const saveStoresByUserAdmin = async (value) => {
     try {

@@ -7,12 +7,17 @@ import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-ta
 import Colum_simple from '../../../utils/components/colum_simple';
 import ListRegister from './components/listRegisters'
 import { useSelector } from 'react-redux';
+import { DataTable } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
+
+const optionsPerPage = [2, 3, 4];
 
 export default function VisualProduction(props) {
     const navigation = useNavigation()
     const [date, setDate] = useState('')
     const [date2, setDate2] = useState('')
+    const [page, setPage] = useState(0);
+    const [itemsPerPage, setItemsPerPage] = useState(optionsPerPage[0]);
     const [tablahead, setTablaHead] = useState(['Fecha', 'Cant. (kg)', 'Costo', 'Tipo de Palta', 'Encarg.'])
     const [tabladata, setTablaData] = useState([
         ['16-05-21', '2', '3.20', 'Hass', 'Luis'],
@@ -21,8 +26,19 @@ export default function VisualProduction(props) {
         ['16-05-21', '2', '3.20', 'Hass', 'Luis'],
         ['16-05-21', '2', '3.20', 'Hass', 'Luis'],
     ])
-    const  listas  = useSelector(reducers => reducers.ProductionReducer).ListProduction;
+    const listas = useSelector(reducers => reducers.ProductionReducer).ListProduction;
     console.log(listas);
+
+    function getFecha(fecha){
+        console.log(fecha);
+        let id = fecha.slice(0, 10);
+        console.log(id);
+        return id
+    }
+
+    useEffect(() => {
+        setPage(0);
+    }, [itemsPerPage]);
     return (
         <ImageBackground style={styles.containerhead} source={require("../../../../assets/bg-home.png")}>
             <View style={styles.top}>
@@ -61,12 +77,28 @@ export default function VisualProduction(props) {
                     </View>
                 </Row_simple>
                 <View style={{ marginTop: 80, marginBottom: 20 }}>
-                    <FlatList
-                        data={listas}
-                        horizontal={false}
-                        renderItem={({ item }) => <ListRegister data={item}  />}
-                        keyExtractor={(item, idx) => idx.toString()}
-                    />
+                    <DataTable>
+                        <DataTable.Header>
+                            <DataTable.Title >Fecha</DataTable.Title>
+                            <DataTable.Title numeric>Cantidad</DataTable.Title>
+                            <DataTable.Title numeric>Tip. Palta</DataTable.Title>
+                            <DataTable.Title numeric>Encargado</DataTable.Title>
+                        </DataTable.Header>
+
+                        {
+                            listas.map((item, idx) => (
+                                <DataTable.Row>
+                                    <DataTable.Cell >{getFecha(item.dateTime)}</DataTable.Cell>
+                                    <DataTable.Cell numeric>{item.cantidad} kg</DataTable.Cell>
+                                    <DataTable.Cell numeric>{item.tipoPalta}</DataTable.Cell>
+                                    <DataTable.Cell numeric>{item.persona}</DataTable.Cell>
+                                </DataTable.Row>
+                            ))
+                        }
+
+
+
+                    </DataTable>
                 </View>
 
             </View>
@@ -148,7 +180,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        borderRadius: 15,
         marginVertical: 10,
         paddingHorizontal: 10
     },

@@ -7,14 +7,17 @@ import Icon2 from 'react-native-vector-icons/AntDesign';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { optionsImagePicker } from '../../../utils/others';
 import { AddRegistersRiesgo } from '../../../actions/ProductionActions';
+import { Picker } from '@react-native-community/picker';
 import { useDispatch, useSelector } from 'react-redux';
+import CurrencyInput from 'react-native-currency-input';
+
 export default function RegisterRiesgo(props) {
     const navigation = useNavigation()
     const [avatarSource1, setAvatarSource1] = useState(null)
     const [avatarSource2, setAvatarSource2] = useState(null)
     const [avatarSource3, setAvatarSource3] = useState(null)
     const [cantidad, setCantidad] = useState('')
-    const [costo, setCosto] = useState('')
+    const [costo, setCosto] = useState('0.00')
     const [persona, setPersona] = useState('')
     const [tipoPalta, setTipoPalta] = useState('')
     const dispatch = useDispatch();
@@ -23,7 +26,7 @@ export default function RegisterRiesgo(props) {
 
     const onSubmmmit = async () => {
         console.log(costo );
-        if (!persona || !avatarSource1 || !avatarSource2 || !avatarSource3 || !costo) {
+        if (!persona || !avatarSource1 || !avatarSource2 || !avatarSource3 || costo == '0.00') {
             console.log("entreeee");
             return Alert.alert(
                 "Alerta",
@@ -117,24 +120,28 @@ export default function RegisterRiesgo(props) {
                         <View>
                             <View>
                                 <Text style={{ fontSize: 18 }}>Encarg. de Riesgo</Text>
-                                <View style={styles.container_input}>
-                                    <TextInput
-                                        placeholder=''
-                                        keyboardType="default"
-                                        onChangeText={(e) => setPersona(e)}
-                                        style={styles.input}
-                                    />
+                                <View style={styles.row} flex={1}>
+                                    <View style={styles.container_input3} flex={1}>
+                                        <Picker
+                                            enabled={true}
+                                            selectedValue={persona}
+                                            onValueChange={date => setPersona(date)}
+                                            itemStyle={{ fontSize: 20, color: 'white' }}
+                                        >
+                                            <Picker.Item label="Persona" value="" color="#a0aec0" />
+                                            <Picker.Item label="Javier" value="Javier" />
+                                            <Picker.Item label="Fernando" value="Fernando" />
+                                            <Picker.Item label="Lucas" value="Lucas" />
+                                            <Picker.Item label="Edward" value="Edward" />
+
+                                        </Picker>
+                                    </View>
                                 </View>
                             </View>
                             <View>
                                 <Text style={{ fontSize: 18 }}>Costo</Text>
                                 <View style={styles.container_input}>
-                                    <TextInput
-                                        placeholder=''
-                                        keyboardType="default"
-                                        onChangeText={(e) => setCosto(e)}
-                                        style={styles.input}
-                                    />
+                                <CurrencyInput style={styles.input} value={costo} delimiter="," separator="." onChangeValue={setCosto} onChangeText={(formattedValue) => { if (formattedValue == "") { setCosto("0.00") } }} precision={2} />
                                 </View>
                             </View>
                         </View>
@@ -311,5 +318,17 @@ const styles = StyleSheet.create({
         width: 220,
         //justifyContent: "space-around",
         alignItems: "center"
-    }
+    },
+    row: {
+        display: 'flex',
+        alignItems: 'center',
+        width: 180,
+        borderWidth: 3,
+        borderColor: 'blue',
+        backgroundColor: 'transparent',
+        paddingHorizontal: 10,
+        flexDirection: "row",
+        marginTop: 5,
+        marginVertical: 10,
+    },
 })
