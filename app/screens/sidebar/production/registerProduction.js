@@ -5,6 +5,7 @@ import Row_simple from '../../../utils/components/row_simple'
 import Colum_simple from '../../../utils/components/colum_simple'
 import Icon2 from 'react-native-vector-icons/AntDesign';
 import Icon3 from 'react-native-vector-icons/MaterialIcons';
+import Axios from 'axios';
 import CurrencyInput from 'react-native-currency-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
@@ -22,6 +23,7 @@ export default function RegisterProduction(props) {
     const [tipoPalta, setTipoPalta] = useState('')
     const [precio, setPrecio] = useState('0.00')
     const listas = useSelector(reducers => reducers.ProductionReducer).ListProduction;
+    const url_data = "https://apiusers.azurewebsites.net/api/produccion"
     console.log(listas);
     const onSummit = async () => {
         if (cantidad == "0.00" || !persona || precio == '0.00' || !foto || !tipoPalta || !avatarSource) {
@@ -32,20 +34,47 @@ export default function RegisterProduction(props) {
             )
         }
         var today = new Date();
-        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        var dateTime = date + ' ' + time;
-        dispatch(AddRegisters(cantidad, precio, foto, tipoPalta, persona, avatarSource, dateTime))
-        Alert.alert(
-            "Satisfactorio",
-            "Nuevo registro creado",
-            [
-                {
-                    text: "Ok",
-                    onPress: () => navigation.goBack()
-                }
-            ]
-        )
+        let monto = (precio * cantidad).toFixed(2)
+        const formData = {
+            FECHA_REGISTRO: today,
+            PERSONA_ENCARGADA: persona,
+            CANT_PRO: cantidad,
+            TIPO_PALTA: tipoPalta,
+            IMAGEN_PRODUCCION: foto,
+            PRECIO: precio,
+            MontoTotal: Number(monto)
+        }
+        console.log(formData);
+        try {
+            const res = await Axios.post(url_data, formData)
+            console.log("res:", res)
+            Alert.alert(
+                "Satisfactorio",
+                "Nuevo registro creado",
+                [
+                    {
+                        text: "Ok",
+                        onPress: () => navigation.goBack()
+                    }
+                ]
+            )
+            
+            //props.navigation.replace('SideBarStack');//No es necesario, y hace renderizar 2 veces.
+        } catch (error) {
+            console.log(error);
+            Alert.alert(
+                "Error",
+                "Ocurrió un error al registrar producción.",
+                [
+                    {
+                        text: "Ok",
+                        onPress: () => navigation.goBack()
+                    }
+                ]
+            )
+        }
+        /*dispatch(AddRegisters(cantidad, precio, foto, tipoPalta, persona, avatarSource, dateTime))*/
+        
     }
 
     function selectImg() {
@@ -60,11 +89,12 @@ export default function RegisterProduction(props) {
                 console.log('User tapped custom button: ', response.customButton);
             } else {
                 const source = { uri: response.uri };
+                const source2 = response.uri
 
                 // You can also display the image using data:
                 // const source = { uri: 'data:image/jpeg;base64,' + response.data };
                 setAvatarSource(source)
-                setFoto(response.base64)
+                setFoto(source2)
             }
         });
     }
@@ -83,13 +113,13 @@ export default function RegisterProduction(props) {
                     <Row_simple jus_cont={'space-around'}>
                         <View style={{ marginTop: 30 }}>
                             <View>
-                                <Text style={{ fontSize: 20 }}>Cant. Prod</Text>
+                                <Text style={{ fontSize: 20, fontFamily: "Metropolis-SemiBold", color: "white" }}>Cant. Prod</Text>
                                 <View style={styles.container_input}>
-                                <CurrencyInput style={styles.input} value={cantidad} delimiter="," separator="." onChangeValue={setCantidad} onChangeText={(formattedValue) => { if (formattedValue == "") { setCantidad("0.00") } }} precision={2} />
+                                    <CurrencyInput style={styles.input} value={cantidad} delimiter="," separator="." onChangeValue={setCantidad} onChangeText={(formattedValue) => { if (formattedValue == "") { setCantidad("0.00") } }} precision={2} />
                                 </View>
                             </View>
                             <View>
-                                <Text style={{ fontSize: 20 }}>Tipo de palt</Text>
+                                <Text style={{ fontSize: 20, fontFamily: "Metropolis-SemiBold", color: "white" }}>Tipo de palta</Text>
                                 <View style={styles.row} flex={1}>
                                     <View style={styles.container_input3} flex={1}>
                                         <Picker
@@ -103,17 +133,17 @@ export default function RegisterProduction(props) {
                                             <Picker.Item label="Hass" value="Hass" />
                                         </Picker>
                                     </View>
-                                   
+
                                 </View>
                             </View>
                             <View>
-                                <Text style={{ fontSize: 20 }}>Precio</Text>
+                                <Text style={{ fontSize: 20, fontFamily: "Metropolis-SemiBold", color: "white" }}>Precio</Text>
                                 <View style={styles.container_input}>
-                                <CurrencyInput style={styles.input} value={precio} delimiter="," separator="." onChangeValue={setPrecio} onChangeText={(formattedValue) => { if (formattedValue == "") { setPrecio("0.00") } }} precision={2} />
+                                    <CurrencyInput style={styles.input} value={precio} delimiter="," separator="." onChangeValue={setPrecio} onChangeText={(formattedValue) => { if (formattedValue == "") { setPrecio("0.00") } }} precision={2} />
                                 </View>
                             </View>
                             <View>
-                                <Text style={{ fontSize: 20 }}>Pers. Encargada</Text>
+                                <Text style={{ fontSize: 20, fontFamily: "Metropolis-SemiBold", color: "white" }}>Pers. Encargada</Text>
                                 <View style={styles.row} flex={1}>
                                     <View style={styles.container_input3} flex={1}>
                                         <Picker
@@ -135,7 +165,7 @@ export default function RegisterProduction(props) {
                         </View>
                         <View style={{ marginTop: 30 }}>
                             <View style={{ display: 'flex', alignItems: 'center' }}>
-                                <Text style={{ fontSize: 20, color: 'white' }}>Añadir Imagen</Text>
+                                <Text style={{ fontSize: 20, color: 'white', fontFamily: "Metropolis-SemiBold" }}>Añadir Imagen</Text>
                                 <Pressable style={{ position: "relative" }} onPress={() => selectImg()}>
                                     {avatarSource ?
                                         <Image source={avatarSource} style={styles.img} /> :
@@ -190,7 +220,7 @@ const styles = StyleSheet.create({
     txt_white: {
         color: '#fff',
         fontSize: 18,
-        fontWeight: 'bold'
+        fontFamily: "Metropolis-Bold"
     },
     img_contac2: {
         marginRight: "auto",
@@ -230,7 +260,7 @@ const styles = StyleSheet.create({
         width: 180,
         height: 45,
         borderWidth: 3,
-        borderColor: 'blue',
+        borderColor: 'black',
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
@@ -296,8 +326,9 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         width: 180,
+        height: 45,
         borderWidth: 3,
-        borderColor: 'blue',
+        borderColor: 'black',
         backgroundColor: 'transparent',
         paddingHorizontal: 10,
         flexDirection: "row",

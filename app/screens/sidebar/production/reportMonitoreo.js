@@ -72,12 +72,12 @@ export default function ReportMonitoreo(props) {
                 <Text style={styles.txt_white}>Control de Monitoreo</Text>
             </View>
             <View>
-                <Text style={{ textAlign: 'center', fontSize: 30, marginTop: 40, color: 'white', marginBottom: 40 }}>KPI</Text>
+                <Text style={{ textAlign: 'center', fontSize: 30, marginTop: 40, color: 'white', marginBottom: 40, fontFamily: 'Metropolis-SemiBold' }}>KPI</Text>
                 <View style={styles.centro_cont}>
-                    <Text style={{fontSize:16, color:'white'}}>Índice de crecimiento de la producción: 2.5</Text>
+                    <Text style={{fontSize:16, color:'white', fontFamily: 'Metropolis-SemiBold'}}>Índice de crecimiento de la producción: 2.5</Text>
                 </View>
                 <View style={styles.centro_cont}>
-                    <Text style={{fontSize:16, color:'white'}}>Índice de crecimiento de ingreso netos: 1.2</Text>
+                    <Text style={{fontSize:16, color:'white', fontFamily: 'Metropolis-SemiBold'}}>Índice de crecimiento de ingreso netos: 1.2</Text>
                 </View>
 
             </View>
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     txt_white: {
         color: '#fff',
         fontSize: 18,
-        fontWeight: 'bold'
+        fontFamily: 'Metropolis-Bold'
     },
     img_contac2: {
         marginRight: "auto",

@@ -6,9 +6,11 @@ import DatePicker from 'react-native-datepicker'
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import Colum_simple from '../../../utils/components/colum_simple';
 import ListRegister from './components/listRegisters'
+import Axios from 'axios';
 import { useSelector } from 'react-redux';
 import { DataTable } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Picker } from '@react-native-community/picker';
 
 const optionsPerPage = [2, 3, 4];
 
@@ -16,7 +18,9 @@ export default function VisualProduction(props) {
     const navigation = useNavigation()
     const [date, setDate] = useState('')
     const [date2, setDate2] = useState('')
+    const [tipo, setTipo] = useState('')
     const [page, setPage] = useState(0);
+    const [registros, setRegistros] = useState([])
     const [itemsPerPage, setItemsPerPage] = useState(optionsPerPage[0]);
     const [tablahead, setTablaHead] = useState(['Fecha', 'Cant. (kg)', 'Costo', 'Tipo de Palta', 'Encarg.'])
     const [tabladata, setTablaData] = useState([
@@ -27,18 +31,45 @@ export default function VisualProduction(props) {
         ['16-05-21', '2', '3.20', 'Hass', 'Luis'],
     ])
     const listas = useSelector(reducers => reducers.ProductionReducer).ListProduction;
-    console.log(listas);
+    const url_data = "https://apiusers.azurewebsites.net/api/produccion"
 
-    function getFecha(fecha){
-        console.log(fecha);
+
+    function getFecha(fecha) {
         let id = fecha.slice(0, 10);
-        console.log(id);
         return id
     }
 
     useEffect(() => {
         setPage(0);
     }, [itemsPerPage]);
+
+    useEffect(() => {
+        let value = date.split("-")
+        let data = ''
+        let value2 = date2.split("-")
+        let data2 = ''
+        value.forEach(elem => {
+            data += elem
+        })
+        value2.forEach(elem => {
+            data2 += elem
+        })
+        console.log(data.length);
+        async function getData() {
+            console.log(`${url_data}/${data}/${data2}`);
+            try {
+                const res = await Axios.get(url_data + `/${data} 00:00/${data2} 23:59`)
+                console.log(res.data.objModel);
+                setRegistros(res.data.objModel)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        if (data.length > 5 || data2.length > 5) {
+            getData()
+        }
+    }, [date, date2]);
+
     return (
         <ImageBackground style={styles.containerhead} source={require("../../../../assets/bg-home.png")}>
             <View style={styles.top}>
@@ -50,56 +81,73 @@ export default function VisualProduction(props) {
             </View>
 
             <View style={styles.container}>
-                <Row_simple mar_top={30}>
+                <View style={{ display: 'flex', alignItems: 'center', marginTop: 20 }}>
+                <Text style={{ fontSize: 20, fontFamily: "Metropolis-Bold", color: '#fff' }}>Tipo Palta</Text>
+                    <View style={styles.row}>
+                        <View style={styles.container_input3} flex={1}>
+                            <Picker
+                                enabled={true}
+                                selectedValue={tipo}
+                                onValueChange={date => setTipo(date)}
+                                itemStyle={{ fontSize: 20, color: 'white' }}
+                            >
+                                <Picker.Item label="Tipo" value="" color="#a0aec0" />
+                                <Picker.Item label="Fuerte" value="Fuerte" />
+                                <Picker.Item label="Hass" value="Hass" />
+                            </Picker>
+                        </View>
+
+                    </View>
+                </View>
+                <Row_simple mar_top={10}>
                     <View>
-                        <Text style={{ fontSize: 20, color: '#fff' }}>Fecha Inicio</Text>
+                        <Text style={{ fontSize: 20, color: '#fff', fontFamily: "Metropolis-Bold" }}>Fecha Inicio</Text>
                         <View style={styles.container_input}>
                             <DatePicker style={{ width: 150 }}
                                 date={date}
-                                format='DD-MM-YYYY'
-                                minDate='20-05-2019'
-                                maxDate='20-05-2025'
+                                format='YYYY-MM-DD'
                                 onDateChange={setDate}
                             />
                         </View>
                     </View>
                     <View>
-                        <Text style={{ fontSize: 20, color: '#fff' }}>Fecha Fin</Text>
+                        <Text style={{ fontSize: 20, color: '#fff', fontFamily: "Metropolis-Bold" }}>Fecha Fin</Text>
                         <View style={styles.container_input}>
                             <DatePicker style={{ width: 150 }}
                                 date={date2}
-                                format='DD-MM-YYYY'
-                                minDate='20-05-2019'
-                                maxDate='20-05-2025'
+                                format='YYYY-MM-DD'
                                 onDateChange={setDate2}
                             />
                         </View>
                     </View>
                 </Row_simple>
-                <View style={{ marginTop: 80, marginBottom: 20 }}>
+
+                <ScrollView style={{ marginTop: 0, marginBottom: 20 }}>
                     <DataTable>
                         <DataTable.Header>
-                            <DataTable.Title >Fecha</DataTable.Title>
-                            <DataTable.Title numeric>Cantidad</DataTable.Title>
-                            <DataTable.Title numeric>Tip. Palta</DataTable.Title>
-                            <DataTable.Title numeric>Encargado</DataTable.Title>
+                            <DataTable.Title ><Text style={{ fontSize: 12, fontFamily: "Metropolis-Bold", color: "white" }}>Fecha</Text></DataTable.Title>
+                            <DataTable.Title numeric><Text style={{ fontSize: 12, fontFamily: "Metropolis-Bold", color: "white" }}>Cantidad</Text></DataTable.Title>
+                            <DataTable.Title numeric><Text style={{ fontSize: 12, fontFamily: "Metropolis-Bold", color: "white" }}>Precio</Text></DataTable.Title>
+                            <DataTable.Title numeric><Text style={{ fontSize: 12, fontFamily: "Metropolis-Bold", color: "white" }}>Total</Text></DataTable.Title>
                         </DataTable.Header>
 
                         {
-                            listas.map((item, idx) => (
+                            registros.map((item, idx) => (
+
                                 <DataTable.Row>
-                                    <DataTable.Cell >{getFecha(item.dateTime)}</DataTable.Cell>
-                                    <DataTable.Cell numeric>{item.cantidad} kg</DataTable.Cell>
-                                    <DataTable.Cell numeric>{item.tipoPalta}</DataTable.Cell>
-                                    <DataTable.Cell numeric>{item.persona}</DataTable.Cell>
+                                    <DataTable.Cell ><Text style={{ fontSize: 12, fontFamily: "Metropolis-Bold", color: "white" }}>{getFecha(item.fechA_REGISTRO)}</Text></DataTable.Cell>
+                                    <DataTable.Cell numeric><Text style={{ fontSize: 12, fontFamily: "Metropolis-Bold", color: "white" }}>{item.canT_PRO} kg</Text></DataTable.Cell>
+                                    <DataTable.Cell numeric><Text style={{ fontSize: 12, fontFamily: "Metropolis-Bold", color: "white" }}>{item.precio} kg</Text></DataTable.Cell>
+                                    <DataTable.Cell numeric><Text style={{ fontSize: 12, fontFamily: "Metropolis-Bold", color: "white" }}>{item.montoTotal}</Text></DataTable.Cell>
                                 </DataTable.Row>
+
                             ))
                         }
 
 
 
                     </DataTable>
-                </View>
+                </ScrollView>
 
             </View>
         </ImageBackground>
@@ -125,9 +173,16 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 100,
     },
+    img: {
+        width: 80,
+        height: 80,
+    },
     centro_cont: {
         display: 'flex',
         justifyContent: 'center',
+    },
+    container_input3: {
+        color: "#000"
     },
     head: {
         height: 60,
@@ -149,7 +204,7 @@ const styles = StyleSheet.create({
     txt_white: {
         color: '#fff',
         fontSize: 18,
-        fontWeight: 'bold'
+        fontFamily: "Metropolis-Bold"
     },
     acontainer: {
         width: '80%',
@@ -201,6 +256,19 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         //fontSize:15,
         marginVertical: 12
+    },
+    row: {
+        display: 'flex',
+        alignItems: 'center',
+        width: 180,
+        height: 45,
+        borderWidth: 3,
+        borderColor: 'white',
+        backgroundColor: 'transparent',
+        paddingHorizontal: 10,
+        flexDirection: "row",
+        marginTop: 5,
+        marginVertical: 10,
     },
     containerBtn: {
         width: 290,

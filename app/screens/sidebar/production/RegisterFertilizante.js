@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     txt_white: {
         color: '#fff',
         fontSize: 18,
-        fontWeight: 'bold'
+        fontFamily: "Metropolis-Bold"
     },
     acontainer: {
         width: '60%',
@@ -168,12 +168,13 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
-        color: "#000"
+        color: "#000",
+        fontFamily: "Metropolis-Bold"
     },
     textbtn: {
         color: "#fff",
         textAlign: "center",
-        fontWeight: "bold",
+        fontFamily: "Metropolis-Bold",
         //fontSize:15,
         marginVertical: 12
     },
