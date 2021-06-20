@@ -46,24 +46,6 @@ export default function Home(props) {
                 <View style={styles.container}>
                     <View style={{ marginTop: 50 }}>
                         <Pressable android_ripple={{ color: "#3b3b3b" }}
-                            onPress={() => navigation.navigate("RegisterProduction")} style={styles.acontainer}>
-                            <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
-                                <Image source={require('../../../../assets/pr.png')} style={{ width: 80, height: 80 }}></Image>
-                                <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
-                                    <Text style={styles.txt_center}>Registrar {'\n'} Producción</Text>
-                                </View>
-                            </Row_simple>
-                        </Pressable>
-                        <Pressable android_ripple={{ color: "#3b3b3b" }}
-                            onPress={() => navigation.navigate("VisualProduction")} style={styles.acontainer}>
-                            <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
-                                <Image source={require('../../../../assets/lupita.png')} style={{ width: 80, height: 80 }}></Image>
-                                <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
-                                    <Text style={styles.txt_center}>Visualizar {'\n'} Producción</Text>
-                                </View>
-                            </Row_simple>
-                        </Pressable>
-                        <Pressable android_ripple={{ color: "#3b3b3b" }}
                             onPress={() => navigation.navigate("ReportSensor")} style={styles.acontainer}>
                             <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
                                 <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
@@ -78,6 +60,24 @@ export default function Home(props) {
                                 <Image source={require('../../../../assets/camara.png')} style={{ width: 80, height: 80 }}></Image>
                                 <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
                                     <Text style={styles.txt_center}>Reporte de {'\n'} monitoreo</Text>
+                                </View>
+                            </Row_simple>
+                        </Pressable>
+                        <Pressable android_ripple={{ color: "#3b3b3b" }}
+                            onPress={() => navigation.navigate("RegisterProduction")} style={styles.acontainer}>
+                            <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
+                                <Image source={require('../../../../assets/pr.png')} style={{ width: 80, height: 80 }}></Image>
+                                <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    <Text style={styles.txt_center}>Registrar {'\n'} Producción</Text>
+                                </View>
+                            </Row_simple>
+                        </Pressable>
+                        <Pressable android_ripple={{ color: "#3b3b3b" }}
+                            onPress={() => navigation.navigate("VisualProduction")} style={styles.acontainer}>
+                            <Row_simple mar_top={10} mar_bot={10} pad_h={0}>
+                                <Image source={require('../../../../assets/lupita.png')} style={{ width: 80, height: 80 }}></Image>
+                                <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    <Text style={styles.txt_center}>Visualizar {'\n'} Producción</Text>
                                 </View>
                             </Row_simple>
                         </Pressable>
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     txt_white: {
         color: '#fff',
         fontSize: 18,
-        fontWeight: 'bold'
+        fontFamily: "Metropolis-Bold"
     },
     acontainer: {
         width: '60%',
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#fff',
         fontSize: 18,
-        fontWeight: 'bold',
+        fontFamily: "Metropolis-Bold",
         textTransform: 'uppercase'
     },
     container_input: {

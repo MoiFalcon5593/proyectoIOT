@@ -13,6 +13,7 @@ export default function ReportSensor(props) {
     const navigation = useNavigation()
     const [date, setDate] = useState(0)
     const [date1, setDate1] = useState(0)
+    const [date2, setDate2] = useState(0)
     const url_data = "https://apiusers.azurewebsites.net/api/parametros"
     const [tablahead, setTablaHead] = useState(['Id', 'Alcalinidad', 'Humedad'])
     const [tabladata, setTablaData] = useState([])
@@ -50,7 +51,7 @@ export default function ReportSensor(props) {
                             <Colum_simple flex={0.9}>
                                 <Pressable android_ripple={{ color: "#3b3b3b" }}
                                     onPress={() => navigation.navigate("GraficSensor", { tipo: 'Niveles de Humedad' })}>
-                                    <Text style={{ marginBottom: 20, textAlign: 'center' }}>Nivel de Humedad: {date} (%)</Text>
+                                    <Text style={{ marginBottom: 20, textAlign: 'center', fontFamily: 'Metropolis-SemiBold', color: "white" }}>Nivel de Humedad: {date} (%)</Text>
                                     <Slider
                                         style={{ width: '100%', height: 40, marginBottom: 20 }}
                                         minimumValue={0}
@@ -86,7 +87,7 @@ export default function ReportSensor(props) {
                             <Colum_simple flex={0.9}>
                                 <Pressable android_ripple={{ color: "#3b3b3b" }}
                                     onPress={() => navigation.navigate("GraficSensor", { tipo: 'Niveles de Alcalinidad' })}>
-                                    <Text style={{ marginBottom: 20, textAlign: 'center' }}>Nivel de Alcalinidad: {date1}</Text>
+                                    <Text style={{ marginBottom: 20, textAlign: 'center', fontFamily: 'Metropolis-SemiBold', color: "white" }}>Nivel de Alcalinidad: {date1}</Text>
                                     <Slider
                                         style={{ width: '100%', height: 40, marginBottom: 20 }}
                                         minimumValue={0}
@@ -105,6 +106,42 @@ export default function ReportSensor(props) {
                                         </View>
                                         <View>
                                             <Text>7</Text>
+                                        </View>
+                                    </Row_simple>
+                                </Pressable>
+                            </Colum_simple>
+                            <Colum_simple alitems={'flex-end'} jus_cont={'center'} flex={0.1}>
+                                <Pressable android_ripple={{ color: "#3b3b3b" }}
+                                    onPress={() => navigation.navigate("RegisterFertil")}>
+                                    <Icon2 name='right' color={"#3b3b3b"} size={30} />
+                                </Pressable>
+                            </Colum_simple>
+                        </Row_simple>
+                    </View>
+                    <View style={{ marginTop: 30 }}>
+                        <Row_simple jus_cont={'center'} alitems={'space-between'} flex={1}>
+                            <Colum_simple flex={0.9}>
+                                <Pressable android_ripple={{ color: "#3b3b3b" }}
+                                    onPress={() => navigation.navigate("GraficSensor", { tipo: 'Niveles de Temperatura' })}>
+                                    <Text style={{ marginBottom: 20, textAlign: 'center', fontFamily: 'Metropolis-SemiBold', color: "white"}}>Nivel de Temperatura: {date1} (%)</Text>
+                                    <Slider
+                                        style={{ width: '100%', height: 40, marginBottom: 20 }}
+                                        minimumValue={0}
+                                        value={date2}
+                                        disabled
+                                        maximumValue={7}
+                                        minimumTrackTintColor="#FFFFFF"
+                                        maximumTrackTintColor="#000000"
+                                        thumbStyle={{ height: 80, width: 20 }}
+                                        thumbTintColor="red"
+                                        trackStyle={{ height: 60 }}
+                                    />
+                                    <Row_simple>
+                                        <View>
+                                            <Text>0</Text>
+                                        </View>
+                                        <View>
+                                            <Text>100</Text>
                                         </View>
                                     </Row_simple>
                                 </Pressable>
@@ -164,7 +201,7 @@ const styles = StyleSheet.create({
     txt_white: {
         color: '#fff',
         fontSize: 18,
-        fontWeight: 'bold'
+        fontFamily: 'Metropolis-Bold'
     },
     acontainer: {
         width: '80%',

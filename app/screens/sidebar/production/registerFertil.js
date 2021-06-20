@@ -110,7 +110,7 @@ export default function RegisterFertil(props) {
                     <Row_simple mar_top={30}>
                         <View>
                             <View>
-                                <Text style={{ fontSize: 20 }}>Encarg.de Fertiliz.</Text>
+                                <Text style={{ fontSize: 20, color: "white", fontFamily: "Metropolis-SemiBold" }}>Encarg.de Fertiliz.</Text>
                                 <View style={styles.row} flex={1}>
                                     <View style={styles.container_input3} flex={1}>
                                         <Picker
@@ -130,7 +130,7 @@ export default function RegisterFertil(props) {
                                 </View>
                             </View>
                             <View>
-                                <Text style={{ fontSize: 20 }}>Tipo de Fertiliz.</Text>
+                                <Text style={{ fontSize: 20, color: "white", fontFamily: "Metropolis-SemiBold" }}>Tipo de Fertiliz.</Text>
                                 <View style={styles.row} flex={1}>
                                     <View style={styles.container_input3} flex={1}>
                                         <Picker
@@ -151,7 +151,7 @@ export default function RegisterFertil(props) {
                                 </View>
                             </View>
                             <View>
-                                <Text style={{ fontSize: 20 }}>Tipo de abono</Text>
+                                <Text style={{ fontSize: 20, color: "white", fontFamily: "Metropolis-SemiBold" }}>Tipo de abono</Text>
                                 <View style={styles.row} flex={1}>
                                     <View style={styles.container_input3} flex={1}>
                                         <Picker
@@ -172,13 +172,13 @@ export default function RegisterFertil(props) {
                                 </View>
                             </View>
                             <View>
-                                <Text style={{ fontSize: 20 }}>Costo de fertiliz.</Text>
+                                <Text style={{ fontSize: 20, color: "white", fontFamily: "Metropolis-SemiBold" }}>Costo de fertiliz.</Text>
                                 <View style={styles.container_input}>
                                 <CurrencyInput style={styles.input} value={costofer} delimiter="," separator="." onChangeValue={setCostoFer} onChangeText={(formattedValue) => { if (formattedValue == "") { setCostoFer("0.00") } }} precision={2} />
                                 </View>
                             </View>
                             <View>
-                                <Text style={{ fontSize: 20 }}>Costo de abono</Text>
+                                <Text style={{ fontSize: 20, color: "white", fontFamily: "Metropolis-SemiBold" }}>Costo de abono</Text>
                                 <View style={styles.container_input}>
                                 <CurrencyInput style={styles.input} value={costoabo} delimiter="," separator="." onChangeValue={setCostoAbo} onChangeText={(formattedValue) => { if (formattedValue == "") { setCostoAbo("0.00") } }} precision={2} />
                                 </View>
@@ -186,7 +186,7 @@ export default function RegisterFertil(props) {
                         </View>
                         <View>
                             <View style={{ display: 'flex', alignItems: 'center' }}>
-                                <Text style={{ fontSize: 20, color: 'white' }}>Añadir Imagen 1</Text>
+                                <Text style={{ fontSize: 20, color: 'white', fontFamily: "Metropolis-SemiBold" }}>Añadir Imagen 1</Text>
                                 <Pressable style={{ position: "relative", marginBottom: 15 }} onPress={() => selectImg()}>
                                     {avatarSource ?
                                         <Image source={avatarSource} style={styles.img} /> :
@@ -194,7 +194,7 @@ export default function RegisterFertil(props) {
                                 </Pressable>
                             </View>
                             <View style={{ display: 'flex', alignItems: 'center' }}>
-                                <Text style={{ fontSize: 20, color: 'white' }}>Añadir Imagen 2</Text>
+                                <Text style={{ fontSize: 20, color: 'white', fontFamily: "Metropolis-SemiBold" }}>Añadir Imagen 2</Text>
                                 <Pressable style={{ position: "relative", marginBottom: 15 }} onPress={() => selectImg2()}>
                                     {avatarSource1 ?
                                         <Image source={avatarSource1} style={styles.img} /> :
@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
     txt_white: {
         color: '#fff',
         fontSize: 18,
-        fontWeight: 'bold'
+        fontFamily: "Metropolis-Bold"
     },
     img_contac2: {
         marginRight: "auto",
@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
         width: 180,
         height: 45,
         borderWidth: 3,
-        borderColor: 'blue',
+        borderColor: 'black',
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
@@ -354,8 +354,9 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         width: 180,
+        height: 45,
         borderWidth: 3,
-        borderColor: 'blue',
+        borderColor: 'black',
         backgroundColor: 'transparent',
         paddingHorizontal: 10,
         flexDirection: "row",

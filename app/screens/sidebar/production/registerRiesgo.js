@@ -119,7 +119,7 @@ export default function RegisterRiesgo(props) {
                     <Row_simple mar_top={30}>
                         <View>
                             <View>
-                                <Text style={{ fontSize: 18 }}>Encarg. de Riesgo</Text>
+                                <Text style={{ fontSize: 18, color: "white", fontFamily: "Metropolis-SemiBold" }}>Encarg. de Riesgo</Text>
                                 <View style={styles.row} flex={1}>
                                     <View style={styles.container_input3} flex={1}>
                                         <Picker
@@ -139,7 +139,7 @@ export default function RegisterRiesgo(props) {
                                 </View>
                             </View>
                             <View>
-                                <Text style={{ fontSize: 18 }}>Costo</Text>
+                                <Text style={{ fontSize: 18, color: "white", fontFamily: "Metropolis-SemiBold" }}>Costo</Text>
                                 <View style={styles.container_input}>
                                 <CurrencyInput style={styles.input} value={costo} delimiter="," separator="." onChangeValue={setCosto} onChangeText={(formattedValue) => { if (formattedValue == "") { setCosto("0.00") } }} precision={2} />
                                 </View>
@@ -147,7 +147,7 @@ export default function RegisterRiesgo(props) {
                         </View>
                         <View>
                             <View style={{ display: 'flex', alignItems: 'center'}}>
-                                <Text style={{ fontSize: 18, color: 'white' }}>Añadir Imagen 1</Text>
+                                <Text style={{ fontSize: 18, color: 'white', fontFamily: "Metropolis-SemiBold" }}>Añadir Imagen 1</Text>
                                 <Pressable style={{ position: "relative", marginBottom: 15 }} onPress={() => selectImg1()}>
                                     {avatarSource1 ?
                                         <Image source={avatarSource1} style={styles.img} /> :
@@ -155,7 +155,7 @@ export default function RegisterRiesgo(props) {
                                 </Pressable>
                             </View>
                             <View style={{ display: 'flex', alignItems: 'center'}}>
-                                <Text style={{ fontSize: 18, color: 'white' }}>Añadir Imagen 2</Text>
+                                <Text style={{ fontSize: 18, color: 'white', fontFamily: "Metropolis-SemiBold" }}>Añadir Imagen 2</Text>
                                 <Pressable style={{ position: "relative", marginBottom: 15 }} onPress={() => selectImg2()}>
                                     {avatarSource2 ?
                                         <Image source={avatarSource2} style={styles.img} /> :
@@ -163,7 +163,7 @@ export default function RegisterRiesgo(props) {
                                 </Pressable>
                             </View>
                             <View style={{ display: 'flex', alignItems: 'center'}}>
-                                <Text style={{ fontSize: 18, color: 'white' }}>Añadir Imagen 3</Text>
+                                <Text style={{ fontSize: 18, color: 'white', fontFamily: "Metropolis-SemiBold" }}>Añadir Imagen 3</Text>
                                 <Pressable style={{ position: "relative", marginBottom: 15 }} onPress={() => selectImg3()}>
                                     {avatarSource3 ?
                                         <Image source={avatarSource3} style={styles.img} /> :
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     txt_white: {
         color: '#fff',
         fontSize: 18,
-        fontWeight: 'bold'
+        fontFamily: "Metropolis-Bold"
     },
     img_contac2: {
         marginRight: "auto",
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
         width: 180,
         height: 45,
         borderWidth: 3,
-        borderColor: 'blue',
+        borderColor: 'black',
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
@@ -323,8 +323,9 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         width: 180,
+        height: 45,
         borderWidth: 3,
-        borderColor: 'blue',
+        borderColor: 'black',
         backgroundColor: 'transparent',
         paddingHorizontal: 10,
         flexDirection: "row",

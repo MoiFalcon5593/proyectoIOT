@@ -108,7 +108,8 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
-        color: "#000"
+        color: "#000",
+        fontFamily: "Metropolis-Bold"
     },
     textbtn: {
         color: "#fff",
