@@ -58,7 +58,7 @@ export default function VisualProduction(props) {
         async function getData() {
             console.log(`${url_data}/${data}/${data2}`);
             try {
-                const res = await Axios.get(url_data + `/${data} 00:00/${data2} 23:59`)
+                const res = await Axios.get(url_data + `/${tipo}/${data} 00:00/${data2} 23:59`)
                 console.log(res.data.objModel);
                 setRegistros(res.data.objModel)
             } catch (error) {
@@ -68,10 +68,10 @@ export default function VisualProduction(props) {
         if (data.length > 5 || data2.length > 5) {
             getData()
         }
-    }, [date, date2]);
+    }, [date, date2, tipo]);
 
     return (
-        <ImageBackground style={styles.containerhead} source={require("../../../../assets/bg-home.png")}>
+        <ImageBackground style={styles.containerhead} source={require("../../../../assets/wp-verde.jpg")}>
             <View style={styles.top}>
                 <Pressable android_ripple={{ color: "#3b3b3b" }}
                     onPress={() => navigation.goBack()}>
@@ -92,8 +92,8 @@ export default function VisualProduction(props) {
                                 itemStyle={{ fontSize: 20, color: 'white' }}
                             >
                                 <Picker.Item label="Tipo" value="" color="#a0aec0" />
-                                <Picker.Item label="Fuerte" value="Fuerte" />
-                                <Picker.Item label="Hass" value="Hass" />
+                                <Picker.Item label="Fuerte" value="Fuerte" color="white" />
+                                <Picker.Item label="Hass" value="Hass" color="white" />
                             </Picker>
                         </View>
 

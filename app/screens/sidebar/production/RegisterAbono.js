@@ -46,7 +46,7 @@ export default function RegisterAbono(props) {
     }
 
     return (
-        <ImageBackground style={styles.containerhead} source={require("../../../../assets/bg-home.png")}>
+        <ImageBackground style={styles.containerhead} source={require("../../../../assets/wp-verde.jpg")}>
             <View style={styles.top}>
                 <Row_simple jus_cont={'space-evenly'} flex={1}>
                     <Colum_simple jus_cont={'center'} alitems={'flex-start'} flex={0.1} >
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     },
     containerBtn: {
         width: 290,
-        backgroundColor: "#3069e8",
+        backgroundColor: "blue",
         borderRadius: 15,
         marginVertical: 10,
         overflow: "hidden"

@@ -58,7 +58,7 @@ export default function RegisterProduction(props) {
                     }
                 ]
             )
-            
+
             //props.navigation.replace('SideBarStack');//No es necesario, y hace renderizar 2 veces.
         } catch (error) {
             console.log(error);
@@ -74,7 +74,7 @@ export default function RegisterProduction(props) {
             )
         }
         /*dispatch(AddRegisters(cantidad, precio, foto, tipoPalta, persona, avatarSource, dateTime))*/
-        
+
     }
 
     function selectImg() {
@@ -100,7 +100,7 @@ export default function RegisterProduction(props) {
     }
 
     return (
-        <ImageBackground style={styles.containerhead} source={require("../../../../assets/bg-home.png")}>
+        <ImageBackground style={styles.containerhead} source={require("../../../../assets/wp-verde.jpg")}>
             <View style={styles.top}>
                 <Pressable android_ripple={{ color: "#3b3b3b" }}
                     onPress={() => navigation.goBack()}>
@@ -257,14 +257,11 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase'
     },
     container_input: {
-        width: 180,
-        height: 45,
-        borderWidth: 3,
-        borderColor: 'black',
+        backgroundColor: "#fff",
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        borderRadius: 20,
+        borderRadius: 15,
         marginVertical: 10,
         paddingHorizontal: 10
     },
@@ -289,6 +286,7 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
         color: "#000",
+        fontFamily: "Metropolis-Bold"
     },
     textbtn: {
         color: "#fff",
@@ -323,16 +321,12 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     row: {
-        display: 'flex',
-        alignItems: 'center',
-        width: 180,
-        height: 45,
-        borderWidth: 3,
-        borderColor: 'black',
-        backgroundColor: 'transparent',
-        paddingHorizontal: 10,
+        backgroundColor: "#fff",
         flexDirection: "row",
-        marginTop: 5,
+        justifyContent: "space-around",
+        alignItems: "center",
+        borderRadius: 15,
         marginVertical: 10,
+        paddingHorizontal: 10
     },
 })
