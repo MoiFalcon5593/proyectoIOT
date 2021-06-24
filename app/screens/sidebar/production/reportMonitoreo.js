@@ -8,17 +8,30 @@ import { useDispatch, useSelector } from 'react-redux';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { optionsImagePicker } from '../../../utils/others';
 import { AddRegisters } from '../../../actions/ProductionActions';
+import { Picker } from '@react-native-community/picker';
+import Axios from 'axios';
 export default function ReportMonitoreo(props) {
 
     const dispatch = useDispatch();
     const navigation = useNavigation()
     const [avatarSource, setAvatarSource] = useState(null)
     const [foto, setFoto] = useState(null)
+    const [marzo, setMarzo] = useState(0)
+    const [marzo1, setMarzo1] = useState(0)
+    const [abril, setAbril] = useState(0)
+    const [abril1, setAbril1] = useState(0)
+    const [mayo, setMayo] = useState(0)
+    const [mayo1, setMayo1] = useState(0)
+    const [junio, setJunio] = useState(0)
+    const [junio1, setJunio1] = useState(0)
     const [cantidad, setCantidad] = useState('')
     const [persona, setPersona] = useState('')
-    const [tipoPalta, setTipoPalta] = useState('')
+    const [tipoPalta, setTipoPalta] = useState("Fuerte")
     const [precio, setPrecio] = useState('')
+    const [kpi1, setKpi1] = useState(0)
+    const [kpi2, setKpi2] = useState(0)
     const listas = useSelector(reducers => reducers.ProductionReducer).ListProduction;
+    const url_data = "https://apiusers.azurewebsites.net/api/produccion"
     console.log(listas);
     const onSummit = async () => {
         if (!cantidad || !persona || !precio || !foto || !tipoPalta || !avatarSource) {
@@ -62,8 +75,121 @@ export default function ReportMonitoreo(props) {
         });
     }
 
+    useEffect(() => {
+        console.log("hola");
+        async function getMarzo() {
+            try {
+                const res = await Axios.get(url_data + `/${tipoPalta}/20210301 00:00/20210331 23:59`)
+                console.log(res.data.objModel);
+                let rest = 0;
+                let prom = 0;
+                let acum = 0;
+                let rest1 = 0;
+                let prom1 = 0;
+                let i = 0;
+                for (i = 0; i < res.data.objModel.length; i++) {
+                    rest += res.data.objModel[i].canT_PRO
+                    rest1 += res.data.objModel[i].montoTotal
+                }
+                setMarzo(rest)
+                setMarzo1(rest1)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        async function getAbril() {
+            try {
+                const res = await Axios.get(url_data + `/${tipoPalta}/20210401 00:00/20210430 23:59`)
+                console.log(res.data.objModel);
+                let rest = 0;
+                let prom = 0;
+                let acum = 0;
+                let rest1 = 0;
+                let prom1 = 0;
+                let i = 0;
+                for (i = 0; i < res.data.objModel.length; i++) {
+                    rest += res.data.objModel[i].canT_PRO
+                    rest1 += res.data.objModel[i].montoTotal
+                }
+                setAbril(rest)
+                setAbril1(rest1)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        async function getMayo() {
+            try {
+                const res = await Axios.get(url_data + `/${tipoPalta}/20210501 00:00/20210531 23:59`)
+                console.log(res.data.objModel);
+                let rest = 0;
+                let prom = 0;
+                let acum = 0;
+                let rest1 = 0;
+                let prom1 = 0;
+                let i = 0;
+                for (i = 0; i < res.data.objModel.length; i++) {
+                    rest += res.data.objModel[i].canT_PRO
+                    rest1 += res.data.objModel[i].montoTotal
+                }
+                setMayo(rest)
+                setMayo1(rest1)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        async function getJunio() {
+            try {
+                const res = await Axios.get(url_data + `/${tipoPalta}/20210601 00:00/20210630 23:59`)
+                console.log(res.data.objModel);
+                let rest = 0;
+                let prom = 0;
+                let acum = 0;
+                let rest1 = 0;
+                let prom1 = 0;
+                let i = 0;
+                for (i = 0; i < res.data.objModel.length; i++) {
+                    rest += res.data.objModel[i].canT_PRO
+                    rest1 += res.data.objModel[i].montoTotal
+                }
+                setJunio(rest)
+                setJunio1(rest1)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getMarzo()
+        getAbril()
+        getMayo()
+        getJunio()
+
+    }, [tipoPalta, junio1])
+
+
+    useEffect(() => {
+        if (abril != 0 && marzo != 0 && mayo != 0 && junio != 0) {
+            let i1 = (((abril / marzo) - 1) * 100).toFixed(1)
+            i1 = Number(i1)
+            let i2 = (((mayo / abril) - 1) * 100).toFixed(1)
+            i2 = Number(i2)
+            let i3 = (((junio / mayo) - 1) * 100).toFixed(1)
+            i3 = Number(i3)
+            let prom = ((i1 + i2 + i3) / 3).toFixed(2)
+            console.log(abril, marzo, i1, i2, i3, prom);
+            let j1 = (((abril1 / marzo1) - 1) * 100).toFixed(1)
+            j1 = Number(j1)
+            let j2 = (((mayo1 / abril1) - 1) * 100).toFixed(1)
+            j2 = Number(j2)
+            let j3 = (((junio1 / mayo1) - 1) * 100).toFixed(1)
+            j3 = Number(j3)
+            let prom2 = ((j1 + j2 + j3) / 3).toFixed(2)
+            console.log(j1, j2, j3, prom2);
+            setKpi1(prom)
+            setKpi2(prom2)
+        }
+    }, [marzo, abril, mayo, junio, marzo1, abril1, mayo1, junio1])
+
     return (
-        <ImageBackground style={styles.containerhead} source={require("../../../../assets/bg-home.png")}>
+        <ImageBackground style={styles.containerhead} source={require("../../../../assets/wp-verde.jpg")}>
             <View style={styles.top}>
                 <Pressable android_ripple={{ color: "#3b3b3b" }}
                     onPress={() => navigation.goBack()}>
@@ -72,15 +198,37 @@ export default function ReportMonitoreo(props) {
                 <Text style={styles.txt_white}>Control de Monitoreo</Text>
             </View>
             <View>
-                <Text style={{ textAlign: 'center', fontSize: 30, marginTop: 40, color: 'white', marginBottom: 40, fontFamily: 'Metropolis-SemiBold' }}>KPI</Text>
-                <View style={styles.centro_cont}>
-                    <Text style={{fontSize:16, color:'white', fontFamily: 'Metropolis-SemiBold'}}>Índice de crecimiento de la producción: 2.5</Text>
+                <Text style={{ textAlign: 'center', fontSize: 30, marginTop: 40, color: 'white', marginBottom: 20, fontFamily: 'Metropolis-SemiBold' }}>KPI</Text>
+                <View style={{ display: 'flex', alignItems: 'center', marginBottom: 40 }}>
+                    <Text style={{ color: 'white', fontSize: 18, fontFamily: 'Metropolis-SemiBold' }}>Tipo de Palta</Text>
+                    <View style={styles.row} >
+                        <View style={styles.container_input3} flex={1}>
+                            <Picker
+                                enabled={true}
+                                selectedValue={tipoPalta}
+                                onValueChange={date => setTipoPalta(date)}
+                                itemStyle={{ fontSize: 20, color: 'white' }}
+                            >
+                                <Picker.Item label="Tipo de Palta" value="" color="#a0aec0" />
+                                <Picker.Item label="Fuerte" value={'Fuerte'} color="white" />
+                                <Picker.Item label="Hass" value={'Hass'} color="white" />
+
+                            </Picker>
+                        </View>
+                    </View>
                 </View>
-                <View style={styles.centro_cont}>
-                    <Text style={{fontSize:16, color:'white', fontFamily: 'Metropolis-SemiBold'}}>Índice de crecimiento de ingreso netos: 1.2</Text>
+            </View>
+            <ScrollView>
+                <View>
+                    <View style={styles.centro_cont}>
+                        <Text style={{ fontSize: 14, color: 'white', fontFamily: 'Metropolis-SemiBold' }}>Índice de crecimiento de la producción: {kpi1}%</Text>
+                    </View>
+                    <View style={styles.centro_cont}>
+                        <Text style={{ fontSize: 14, color: 'white', fontFamily: 'Metropolis-SemiBold' }}>Índice de crecimiento de ingreso netos: {kpi2}%</Text>
+                    </View>
                 </View>
 
-            </View>
+            </ScrollView>
         </ImageBackground>
     );
 }
@@ -215,5 +363,18 @@ const styles = StyleSheet.create({
         width: 220,
         //justifyContent: "space-around",
         alignItems: "center"
-    }
+    },
+    row: {
+        display: 'flex',
+        alignItems: 'center',
+        width: 180,
+        height: 45,
+        borderWidth: 3,
+        borderColor: 'black',
+        backgroundColor: 'transparent',
+        paddingHorizontal: 10,
+        flexDirection: "row",
+        marginTop: 5,
+        marginVertical: 10,
+    },
 })

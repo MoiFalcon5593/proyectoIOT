@@ -62,7 +62,7 @@ export default function Register(props) {
     };
 
     return (
-        <ImageBackground style={styles.containerhead} source={require("../../../../assets/bg-home.png")}>
+        <ImageBackground style={styles.containerhead} source={require("../../../../assets/wp-verde.jpg")}>
             <View style={styles.top}>
                 <Pressable android_ripple={{ color: "#3b3b3b" }}
                     onPress={() => navigation.goBack()}>
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     },
     containerBtn: {
         width: 290,
-        backgroundColor: "#3069e8",
+        backgroundColor: "blue",
         borderRadius: 15,
         marginVertical: 10,
         overflow: "hidden"

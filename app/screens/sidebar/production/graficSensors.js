@@ -64,7 +64,7 @@ export default function GraficSensor(props) {
     console.log(nivel);
     return (
         <View style={styles.fathercontainer}>
-            <ImageBackground style={styles.containerhead} source={require("../../../../assets/bg-home.png")}>
+            <ImageBackground style={styles.containerhead} source={require("../../../../assets/wp-verde.jpg")}>
                 <View style={styles.top}>
                     <Pressable android_ripple={{ color: "#3b3b3b" }}
                         onPress={() => navigation.goBack()}>
